@@ -10,4 +10,5 @@ sealed class RoutesRunes(val route: String) {
     data object Pag7 : RoutesRunes("pag7")
     data object Pag8 : RoutesRunes("pag8")
     data object Pag9 : RoutesRunes("pag9")
+    data object Pag10 : RoutesRunes("pag10")
 }
