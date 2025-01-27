@@ -1,17 +1,18 @@
 package org.book.utils.enum
 
 import book.composeapp.generated.resources.Res
-import book.composeapp.generated.resources.pagina10_runes
-import book.composeapp.generated.resources.pagina1_runes
-import book.composeapp.generated.resources.pagina2_runes
-import book.composeapp.generated.resources.pagina3_runes
-import book.composeapp.generated.resources.pagina4_runes
-import book.composeapp.generated.resources.pagina5_runes
-import book.composeapp.generated.resources.pagina6_runes
-import book.composeapp.generated.resources.pagina7_runes
-import book.composeapp.generated.resources.pagina8_runes
-import book.composeapp.generated.resources.pagina9_runes
+import book.composeapp.generated.resources.pagina10_image_runes
+import book.composeapp.generated.resources.pagina1_image_runes
+import book.composeapp.generated.resources.pagina2_image_runes
+import book.composeapp.generated.resources.pagina3_image_runes
+import book.composeapp.generated.resources.pagina4_image_runes
+import book.composeapp.generated.resources.pagina5_image_runes
+import book.composeapp.generated.resources.pagina6_image_runes
+import book.composeapp.generated.resources.pagina7_image_runes
+import book.composeapp.generated.resources.pagina8_image_runes
+import book.composeapp.generated.resources.pagina9_image_runes
 import org.book.utils.data.DataRuneNavigation
+import org.book.utils.routes.RoutesRunes
 import org.jetbrains.compose.resources.DrawableResource
 
 enum class RunesEnum(
@@ -21,7 +22,11 @@ enum class RunesEnum(
     val rune: String?
 ) {
     Pag1(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag1", routeRuneNext = "pag2"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag1.route,
+            routeRuneNext = RoutesRunes.Pag2.route,
+            routeRunePrevious = RoutesRunes.Pag1.route
+        ),
         texts = mapOf(
             "text1" to """
                 En el reino de Itsu, se cuenta la historia de la gran hechizera programadora 
@@ -32,11 +37,15 @@ enum class RunesEnum(
                 responder al llamado...
             """.trimIndent()
         ),
-        image = Res.drawable.pagina1_runes,
+        image = Res.drawable.pagina1_image_runes,
         rune = null
     ),
     Pag2(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag2", routeRuneNext = "pag3"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag2.route,
+            routeRuneNext = RoutesRunes.Pag3.route,
+            routeRunePrevious = RoutesRunes.Pag1.route
+        ),
         texts = mapOf(
             "text1" to """
                 Primero pasaron por el gran bosque de civilia donde vieron una
@@ -46,11 +55,15 @@ enum class RunesEnum(
                 poder a un hechizo vacio e incluso cambiar el poder de un hechizo.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina2_runes,
+        image = Res.drawable.pagina2_image_runes,
         rune = "="
     ),
     Pag3(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag3", routeRuneNext = "pag4"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag3.route,
+            routeRuneNext = RoutesRunes.Pag4.route,
+            routeRunePrevious = RoutesRunes.Pag2.route
+        ),
         texts = mapOf(
             "text1" to """
                 Explorando las heladas montañas de industrialis, ambas se toparon
@@ -59,11 +72,15 @@ enum class RunesEnum(
                 tiene el mismo poder que otro.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina3_runes,
+        image = Res.drawable.pagina3_image_runes,
         rune = "=="
     ),
     Pag4(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag4", routeRuneNext = "pag5"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag4.route,
+            routeRuneNext = RoutesRunes.Pag5.route,
+            routeRunePrevious = RoutesRunes.Pag3.route
+        ),
         texts = mapOf(
             "text1" to """
                 Dirigiendose a los puentes en el cielo de
@@ -75,15 +92,20 @@ enum class RunesEnum(
             "text2" to """
                 La runa mayor, funciona igual que la runa
                 menor pero con una diferencia, la runa
-                mayor te da a saber cuando el hechizo de tu mano izquierda tiene menor poder que el hechizo de
-                tu mano derecha.
+                mayor te da a saber cuando el hechizo de 
+                tu mano izquierda tiene menor poder que 
+                el hechizo de tu mano derecha.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina4_runes,
+        image = Res.drawable.pagina4_image_runes,
         rune = "<>"
     ),
     Pag5(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag5", routeRuneNext = "pag6"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag5.route,
+            routeRuneNext = RoutesRunes.Pag6.route,
+            routeRunePrevious = RoutesRunes.Pag4.route
+        ),
         texts = mapOf(
             "text1" to """
                 Caminando por los valles de alimentaris, vieron de nuevo 
@@ -92,18 +114,23 @@ enum class RunesEnum(
                 dice:
                 "Veras, esa runa es
                 maravillosa pues compara el poder de el
-                hechizo de tu mano izquierda y de tu mano derecha, para saber cuando el poder es mas grande o si es igual"
+                hechizo de tu mano izquierda y de tu mano derecha, 
+                para saber cuando el poder es mas grande o si es igual"
             """.trimIndent(),
             "text2" to """
                 Que confuso...
                 Respondio la pequeña becaria.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina5_runes,
+        image = Res.drawable.pagina5_image_runes,
         rune = ">="
     ),
     Pag6(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag6", routeRuneNext = "pag7"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag6.route,
+            routeRuneNext = RoutesRunes.Pag7.route,
+            routeRunePrevious = RoutesRunes.Pag5.route
+        ),
         texts = mapOf(
             "text1" to """
                 Pasando por las montañas doradas de administralia admiraron la estatua que 
@@ -114,11 +141,15 @@ enum class RunesEnum(
                 es menor o identico.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina6_runes,
+        image = Res.drawable.pagina6_image_runes,
         rune = "<="
     ),
     Pag7(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag7", routeRuneNext = "pag8"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag7.route,
+            routeRuneNext = RoutesRunes.Pag8.route,
+            routeRunePrevious = RoutesRunes.Pag6.route
+        ),
         texts = mapOf(
             "text1" to """
                 Llegando al arido desierto de mecanican, caminando por las orillas de las montañas
@@ -127,11 +158,15 @@ enum class RunesEnum(
                 diferentes, que no sean iguales.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina7_runes,
+        image = Res.drawable.pagina7_image_runes,
         rune = "!="
     ),
     Pag8(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag8", routeRuneNext = "pag9"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag8.route,
+            routeRuneNext = RoutesRunes.Pag9.route,
+            routeRunePrevious = RoutesRunes.Pag7.route
+        ),
         texts = mapOf(
             "text1" to """
                 En las cascadas eternas se econtraba algo especial, una runa logica. La runa OR
@@ -156,11 +191,15 @@ enum class RunesEnum(
                 dijo la pequeña becaria
             """.trimIndent(),
         ),
-        image = Res.drawable.pagina8_runes,
+        image = Res.drawable.pagina8_image_runes,
         rune = "||"
     ),
     Pag9(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag9", routeRuneNext = "pag10"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag9.route,
+            routeRuneNext = RoutesRunes.Pag10.route,
+            routeRunePrevious = RoutesRunes.Pag8.route
+        ),
         texts = mapOf(
             "text1" to """
                 Pasando por la ultima parte de su camino, se econtraron a un gigante
@@ -170,18 +209,22 @@ enum class RunesEnum(
                 condicionales al mismo timepo.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina9_runes,
+        image = Res.drawable.pagina9_image_runes,
         rune = "&&"
     ),
     Pag10(
-        dataRuneNavigation = DataRuneNavigation(routeRuneActual = "pag10", routeRuneNext = "pag10"),
+        dataRuneNavigation = DataRuneNavigation(
+            routeRuneActual = RoutesRunes.Pag10.route,
+            routeRuneNext = RoutesRunes.Pag10.route,
+            routeRunePrevious = RoutesRunes.Pag9.route
+        ),
         texts = mapOf(
             "text1" to """
                 Llegando porfin a su destino, la hechizera descubrio
                 quien le hacia el gran llamado...
             """.trimIndent()
         ),
-        image = Res.drawable.pagina10_runes,
+        image = Res.drawable.pagina10_image_runes,
         rune = null
     );
 }
