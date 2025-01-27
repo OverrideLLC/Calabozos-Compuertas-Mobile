@@ -88,14 +88,13 @@ enum class RunesEnum(
                 la runa menor y la runa mayor.
                 La runa menor es utilizada por grandes hechizeros para conocer si el hechizo
                 de su mano izquierda tiene menor poder que el hechizo de su mano derecha.
-            """.trimIndent(),
-            "text2" to """
+                
                 La runa mayor, funciona igual que la runa
                 menor pero con una diferencia, la runa
                 mayor te da a saber cuando el hechizo de 
                 tu mano izquierda tiene menor poder que 
                 el hechizo de tu mano derecha.
-            """.trimIndent()
+            """.trimIndent(),
         ),
         image = Res.drawable.pagina4_image_runes,
         rune = "<>"
@@ -116,11 +115,11 @@ enum class RunesEnum(
                 maravillosa pues compara el poder de el
                 hechizo de tu mano izquierda y de tu mano derecha, 
                 para saber cuando el poder es mas grande o si es igual"
-            """.trimIndent(),
-            "text2" to """
+                
+                
                 Que confuso...
                 Respondio la pequeña becaria.
-            """.trimIndent()
+            """.trimIndent(),
         ),
         image = Res.drawable.pagina5_image_runes,
         rune = ">="
@@ -169,24 +168,17 @@ enum class RunesEnum(
         ),
         texts = mapOf(
             "text1" to """
-                En las cascadas eternas se econtraba algo especial, una runa logica. La runa OR
-            """.trimIndent(),
-            "text2" to """
+                En las cascadas eternas se econtraba algo especial, una runa logica. La runa OR.
+                
                 - Runa OR? 
                 Dijo la pequeña becaria
-            """.trimIndent(),
-            "text3" to """
-                - Asi es! La runa OR es especial ya 
-                que requiere de hechizos con runas 
-                de comparacion para crear hechizos 
-                condicionales y teniendo dos
-                hechizos condicionales la runa OR
-                puede darle al hechizero el poder de
-                decidir entre un hechizo condicional u
-                otro.
+                
+                - Asi es! La runa OR es especial ya que requiere de hechizos con runas 
+                de comparacion para crear hechizos condicionales y teniendo dos
+                hechizos condicionales la runa OR puede darle al hechizero el poder de
+                decidir entre un hechizo condicional u otro.
                 respondio la hechizera programadora.
-            """.trimIndent(),
-            "text4" to """
+                
                 - Muy confuso!"
                 dijo la pequeña becaria
             """.trimIndent(),

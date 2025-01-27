@@ -1,5 +1,13 @@
 package org.book.ui.components.pags
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,28 +36,48 @@ fun TextPag(
     text: String,
     color: Color = Color.White,
     contentAlignment: Alignment = Alignment.TopStart,
-    delayMillis: Long = 0
 ) {
     var displayedText by remember { mutableStateOf("") }
+    var isFinalText by remember { mutableStateOf(false) }
+    var delayMillisText by remember { mutableStateOf(20L) }
+    var doubleClick by remember { mutableStateOf(false) }
     LaunchedEffect(text) {
-        delay(delayMillis)
         text.forEachIndexed { index, _ ->
             displayedText = text.take(index + 1)
-            delay(20)
+            delay(delayMillisText)
         }
+        doubleClick = true
     }
-    Box(
-        modifier = Modifier.fillMaxSize().padding(10.dp),
-        contentAlignment = contentAlignment
+    AnimatedVisibility(
+        visible = !isFinalText,
+        enter = slideInVertically { it } + fadeIn(tween(1000)),
+        exit = slideOutVertically { -it } + fadeOut(tween(1000))
     ) {
-        Text(
-            text = displayedText,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
-            fontFamily = FontFamily.Serif,
-            color = color,
-            textAlign = TextAlign.Left
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    if (isFinalText) Color.Transparent else colorScheme.background.copy(
+                        alpha = 0.8f
+                    )
+                )
+                .clickable {
+                    delayMillisText = 2L
+                    if (doubleClick) isFinalText = true
+                    doubleClick = true
+                },
+            contentAlignment = contentAlignment
+        ) {
+            Text(
+                text = displayedText,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily.Serif,
+                color = color,
+                textAlign = TextAlign.Left,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
     }
 }
 
@@ -64,7 +92,7 @@ fun TextRune(
             TextPag(
                 text = runeActual.texts["text1"] ?: "",
                 color = colorScheme.tertiary,
-                contentAlignment = Alignment.TopStart
+                contentAlignment = Alignment.TopStart,
             )
         }
 
@@ -72,7 +100,7 @@ fun TextRune(
             TextPag(
                 text = runeActual.texts["text1"] ?: "",
                 color = colorScheme.tertiary,
-                contentAlignment = Alignment.BottomStart
+                contentAlignment = Alignment.BottomStart,
             )
         }
 
@@ -90,12 +118,6 @@ fun TextRune(
                 color = colorScheme.tertiary,
                 contentAlignment = Alignment.TopStart
             )
-            TextPag(
-                text = runeActual.texts["text2"] ?: "",
-                color = Color.White,
-                contentAlignment = Alignment.BottomCenter,
-                delayMillis = 2000
-            )
         }
 
         RoutesRunes.Pag5.route -> {
@@ -103,12 +125,6 @@ fun TextRune(
                 text = runeActual.texts["text1"] ?: "",
                 color = colorScheme.tertiary,
                 contentAlignment = Alignment.TopStart
-            )
-            TextPag(
-                text = runeActual.texts["text2"] ?: "",
-                color = Color.Black,
-                contentAlignment = Alignment.CenterEnd,
-                delayMillis = 2000
             )
         }
 
@@ -133,24 +149,6 @@ fun TextRune(
                 text = runeActual.texts["text1"] ?: "",
                 color = colorScheme.tertiary,
                 contentAlignment = Alignment.TopStart
-            )
-            TextPag(
-                text = runeActual.texts["text2"] ?: "",
-                color = colorScheme.tertiary,
-                contentAlignment = Alignment.TopEnd,
-                delayMillis = 1000
-            )
-            TextPag(
-                text = runeActual.texts["text3"] ?: "",
-                color = colorScheme.tertiary,
-                contentAlignment = Alignment.CenterEnd,
-                delayMillis = 2000
-            )
-            TextPag(
-                text = runeActual.texts["text4"] ?: "",
-                color = colorScheme.tertiary,
-                contentAlignment = Alignment.BottomStart,
-                delayMillis = 6500
             )
         }
 

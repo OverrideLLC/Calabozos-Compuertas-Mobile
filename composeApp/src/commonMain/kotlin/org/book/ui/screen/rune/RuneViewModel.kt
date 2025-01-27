@@ -9,7 +9,5 @@ class RuneViewModel : ViewModel() {
     private val _state = MutableStateFlow(RuneState())
     val state = _state.asStateFlow()
 
-    fun update(update: RuneState.() -> RuneState) {
-        _state.value = update(_state.value)
-    }
+    fun update(update: RuneState.() -> RuneState) { _state.value = update(_state.value) }
 }

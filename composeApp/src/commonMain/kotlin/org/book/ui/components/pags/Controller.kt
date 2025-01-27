@@ -26,40 +26,37 @@ fun Controller(
 ) {
     var totalDrag by remember { mutableStateOf(0f) }
     val density = LocalDensity.current
-    val threshold = with(density) { 100.dp.toPx() } // Umbral en píxeles equivalentes a 100dp
+    val threshold = with(density) { 100.dp.toPx() }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
-                    onDragStart = {
-                        totalDrag = 0f // Reinicia el acumulador al iniciar el gesto
-                    },
+                    onDragStart = { totalDrag = 0f },
                     onHorizontalDrag = { change, dragAmount ->
-                        change.consume() // Evita interferencias con otros gestos
-
-                        totalDrag += dragAmount // Acumula la distancia horizontal
+                        change.consume()
+                        totalDrag += dragAmount
                     },
                     onDragEnd = {
-                        println("DEBUG: totalDrag = $totalDrag || threshold = $threshold") // Debug clave
                         when {
-                            totalDrag < threshold -> { // Deslizamiento hacia la izquierda
+                            totalDrag < threshold -> {
                                 if (swipeLeft()) {
-                                    navController.navigate(runeActual.dataRuneNavigation.routeRuneNext)
                                     viewModel.update { copy(indexActual = this.indexActual + 1) }
+                                    navController.popBackStack()
+                                    navController.navigate(runeActual.dataRuneNavigation.routeRuneNext)
                                 }
                             }
 
-                            totalDrag > threshold -> { // Deslizamiento hacia la derecha
+                            totalDrag > threshold -> {
                                 if (swipeRight()) {
-                                    navController.navigate(runeActual.dataRuneNavigation.routeRunePrevious)
                                     viewModel.update { copy(indexActual = this.indexActual - 1) }
                                     navController.popBackStack()
+                                    navController.navigate(runeActual.dataRuneNavigation.routeRunePrevious)
                                 }
                             }
                         }
-                        totalDrag = 0f // Reinicia para el próximo gesto
+                        totalDrag = 0f
                     }
                 )
             }

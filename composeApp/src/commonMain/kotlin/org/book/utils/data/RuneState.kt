@@ -5,5 +5,6 @@ import kotlin.enums.EnumEntries
 
 data class RuneState(
     val rune: EnumEntries<RunesEnum> = RunesEnum.entries,
-    val indexActual: Int = 0
+    var indexActual: Int = 0,
+    var directionNavigation: Boolean = false,
 )
