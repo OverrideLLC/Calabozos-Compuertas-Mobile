@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.book.ui.components.pags.Controller
+import org.book.ui.components.pags.Inventory
 import org.book.ui.components.pags.TextRune
 import org.book.ui.components.pags.Tutorial
 import org.book.ui.navigation.NavControllerRunes
@@ -46,11 +47,16 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
         directionNavigation = state.directionNavigation
     )
     if (state.rune[state.indexActual] == RunesEnum.entries[0]) Tutorial()
+    Inventory(
+        runeSelection = {
+            viewModel.update { copy(runeSelection = it) }
+        },
+        runeSelectionActual = state.runeSelection
+    )
     TextRune(
         rune = state.rune,
         indexActual = state.indexActual
     )
-
 }
 
 @Composable
