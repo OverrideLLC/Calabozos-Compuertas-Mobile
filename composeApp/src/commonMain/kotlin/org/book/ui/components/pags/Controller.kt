@@ -24,23 +24,23 @@ fun Controller(
     viewModel: RuneViewModel,
     navController: NavHostController
 ) {
-    var totalDrag by remember { mutableStateOf(0f) }
     val density = LocalDensity.current
-    val threshold = with(density) { 100.dp.toPx() }
+    var totalDragHorizontal by remember { mutableStateOf(0f) }
+    val thresholdHorizontal = with(density) { 100.dp.toPx() }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
-                    onDragStart = { totalDrag = 0f },
+                    onDragStart = { totalDragHorizontal = 0f },
                     onHorizontalDrag = { change, dragAmount ->
                         change.consume()
-                        totalDrag += dragAmount
+                        totalDragHorizontal += dragAmount
                     },
                     onDragEnd = {
                         when {
-                            totalDrag < threshold -> {
+                            totalDragHorizontal < thresholdHorizontal -> {
                                 if (swipeLeft()) {
                                     viewModel.update { copy(indexActual = this.indexActual + 1) }
                                     navController.popBackStack()
@@ -48,7 +48,7 @@ fun Controller(
                                 }
                             }
 
-                            totalDrag > threshold -> {
+                            totalDragHorizontal > thresholdHorizontal -> {
                                 if (swipeRight()) {
                                     viewModel.update { copy(indexActual = this.indexActual - 1) }
                                     navController.popBackStack()
@@ -56,7 +56,7 @@ fun Controller(
                                 }
                             }
                         }
-                        totalDrag = 0f
+                        totalDragHorizontal = 0f
                     }
                 )
             }

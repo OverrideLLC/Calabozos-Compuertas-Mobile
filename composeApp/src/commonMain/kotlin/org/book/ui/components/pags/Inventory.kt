@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -33,17 +34,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.book.utils.data.RuneState
 import org.book.utils.enum.InventoryObject
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Inventory(
-    runeSelection: (InventoryObject) -> Unit,
-    runeSelectionActual: InventoryObject? = null
+    runeState: RuneState,
+    isClick: () -> Unit,
+    onItemSelected: (InventoryObject) -> Unit
 ) {
-    var offsetTarget by remember { mutableStateOf(600.dp) }
+    var offsetTarget by remember { mutableStateOf(550.dp) }
+    var isExpanded by remember { mutableStateOf(false) }
     val animatedOffset by animateDpAsState(
         targetValue = offsetTarget,
         animationSpec = tween(
@@ -51,28 +56,26 @@ fun Inventory(
             easing = FastOutSlowInEasing
         )
     )
-    var isExpanded by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .offset {
-                animatedOffset.value.toInt().let { IntOffset(0, it) }
-            },
+            .offset { animatedOffset.value.toInt().let { IntOffset(0, it) } },
         contentAlignment = Alignment.BottomCenter,
     ) {
         Column(
             modifier = Modifier
                 .padding(10.dp)
                 .size(width = 500.dp, height = 230.dp)
-                .clickable {
-                    offsetTarget = if (offsetTarget == 600.dp) (-10).dp else 600.dp
-                    isExpanded = !isExpanded
-                }
                 .background(
-                    color = colorScheme.background.copy(alpha = 0.5f),
+                    color = colorScheme.background.copy(0.6f),
                     shape = RoundedCornerShape(16.dp)
-                ),
+                )
+                .clickable {
+                    offsetTarget = if (offsetTarget == 550.dp) (-10).dp else 550.dp
+                    isExpanded = !isExpanded
+                    isClick()
+                },
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             content = {
@@ -86,29 +89,30 @@ fun Inventory(
                         Icon(
                             imageVector = if (isExpanded) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
                             contentDescription = "ArrowUp",
-                            tint = colorScheme.tertiary
+                            tint = colorScheme.tertiary,
+                            modifier = Modifier.size(30.dp)
                         )
                     }
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 LazyVerticalStaggeredGrid(
-                    columns = StaggeredGridCells.Fixed(3),
-                    verticalItemSpacing = 5.dp,
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    columns = StaggeredGridCells.Fixed(3)
                 ) {
-                    items(InventoryObject.entries.toList()) { figure ->
-                        if (runeSelectionActual?.form != figure.form) {
-                            IconButton(
-                                onClick = {
-                                    runeSelection(figure)
-                                },
-                                content = {
-                                    Icon(
-                                        painter = painterResource(figure.image),
-                                        contentDescription = figure.form,
-                                        tint = colorScheme.tertiary
-                                    )
-                                }
+                    items(InventoryObject.entries) { item ->
+                        IconButton(
+                            onClick = { onItemSelected(item) },
+                            modifier = Modifier
+                                .wrapContentSize()
+                                .padding(5.dp)
+                                .background(
+                                    color = if (runeState.selectedItems.contains(item)) colorScheme.primary else Color.Transparent,
+                                    shape = RoundedCornerShape(64.dp)
+                                )
+                        ) {
+                            Icon(
+                                painter = painterResource(item.image),
+                                contentDescription = item.form,
+                                tint = item.color
                             )
                         }
                     }
