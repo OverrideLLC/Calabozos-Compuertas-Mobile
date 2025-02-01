@@ -19,7 +19,8 @@ enum class RunesEnum(
     val dataRuneNavigation: DataRuneNavigation,
     val texts: Map<String, String>,
     val image: DrawableResource,
-    val rune: String?
+    val rune: String?,
+    val requiredComparisons: Int = 1
 ) {
     Pag1(
         dataRuneNavigation = DataRuneNavigation(
@@ -29,12 +30,10 @@ enum class RunesEnum(
         ),
         texts = mapOf(
             "text1" to """
-                En el reino de Itsu, se cuenta la historia de la gran hechizera programadora 
-                y su pequeña aprendiz becaria que en su gran curiosidad por aprender 
-                las antiguas lenguas arcanas sigue a su maestra que se incursionaba en
-                una aventura peligrosa.
-                Las montañas mas alla del reino clamaban el nombre de la hechizera y ella debia 
-                responder al llamado...
+                En el reino de Itsu se cuenta la historia de la gran hechizera programadora y su pequeña
+                aprendiz, quien, movida por una insaciable curiosidad por dominar las antiguas lenguas 
+                arcanas, sigue a su maestra en una peligrosa aventura. Las montañas más allá del reino 
+                clamaban el nombre de la hechizera, y ella debía responder al llamado...
             """.trimIndent()
         ),
         image = Res.drawable.pagina1_image_runes,
@@ -53,6 +52,8 @@ enum class RunesEnum(
                 La hechizera con gran sabiduria le explico a
                 su pequeña becaria que esta runa tenia el la capacidad de darle
                 poder a un hechizo vacio e incluso cambiar el poder de un hechizo.
+                Asi que le asigno objetos varios para que pueda usarlos en su travesia
+                y completar las pruebas que le vendrian.
             """.trimIndent()
         ),
         image = Res.drawable.pagina2_image_runes,
@@ -97,7 +98,8 @@ enum class RunesEnum(
             """.trimIndent(),
         ),
         image = Res.drawable.pagina4_image_runes,
-        rune = "<>"
+        rune = "<>",
+        requiredComparisons = 2
     ),
     Pag5(
         dataRuneNavigation = DataRuneNavigation(
