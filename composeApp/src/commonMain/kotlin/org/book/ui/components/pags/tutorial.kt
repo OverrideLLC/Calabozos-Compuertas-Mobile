@@ -30,10 +30,15 @@ import androidx.compose.ui.unit.sp
 import book.composeapp.generated.resources.Res
 import book.composeapp.generated.resources.swipe_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
 import book.composeapp.generated.resources.touch_app_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import org.book.ui.screen.rune.RuneViewModel
+import org.book.utils.data.RuneState
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun Tutorial(tutorial: Int) {
+fun TutorialComponent(
+    state: RuneState,
+    viewModel: RuneViewModel,
+) {
     val density = LocalDensity.current
     val offsetDp = 10.dp
     val offsetPx = remember { with(density) { offsetDp.toPx() } }
@@ -46,10 +51,17 @@ fun Tutorial(tutorial: Int) {
             repeatMode = RepeatMode.Reverse
         )
     )
+    when (state.indexActual) {
+        0 -> {
+            viewModel.update { copy(isPagComplete = true) }
+            Tutorial1(animatedOffset)
+        }
 
-    when (tutorial) {
-        1 -> Tutorial1(animatedOffset)
-        2 -> Tutorial2(animatedOffset)
+        1 -> if (state.isClicked) {
+            viewModel.update { copy(isPagComplete = true) }
+        } else {
+            Tutorial2(animatedOffset)
+        }
     }
 }
 
