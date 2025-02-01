@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.book.utils.data.RuneState
+import org.book.utils.enum.ComparisonOperator
 import org.book.utils.enum.InventoryObject
 
 class RuneViewModel : ViewModel() {
@@ -17,46 +18,28 @@ class RuneViewModel : ViewModel() {
     }
 
     fun toggleSelection(item: InventoryObject) {
-        _state.update { currentState ->
-            val newSelection = currentState.selectedItems.toMutableSet()
-            if (newSelection.contains(item))
-                newSelection.remove(item)
-            else
-                if (newSelection.size < 2)
-                    newSelection.add(item)
-                else {
-                    newSelection.remove(newSelection.first())
-                    newSelection.add(item)
-                }
-
-            currentState.copy(selectedItems = newSelection)
+        _state.update { current ->
+            val newSelection = when {
+                item in current.selectedItems -> current.selectedItems - item
+                current.selectedItems.size < 2 -> current.selectedItems + item
+                else ->
+                    current.selectedItems.drop(1) + item
+            }
+            current.copy(selectedItems = newSelection)
         }
     }
+    fun performComparison(): Boolean {
+        val (operator, items) = _state.value.run { comparisonOperator to selectedItems }
+        if (operator == null || items.size != 2) return false
 
-    fun comparison(): Boolean {
-        if (_state.value.comparison != "" && _state.value.selectedItems.size == 2)
-            return when (_state.value.comparison) {
-                "==" -> _state.value.selectedItems.first().form == _state.value.selectedItems.last().form
-                "<" -> _state.value.selectedItems.first().value < _state.value.selectedItems.last().value
-                ">" -> _state.value.selectedItems.first().value > _state.value.selectedItems.last().value
-                "<=" -> if (_state.value.selectedItems.first().value < _state.value.selectedItems.last().value) {
-                    true
-                } else {
-                    _state.value.selectedItems.first().value == _state.value.selectedItems.last().value
-                }
-
-                ">=" -> if (_state.value.selectedItems.first().value > _state.value.selectedItems.last().value) {
-                    true
-                } else {
-                    _state.value.selectedItems.first().value == _state.value.selectedItems.last().value
-                }
-
-                "!=" -> _state.value.selectedItems.first().form != _state.value.selectedItems.last().form
-                "||" -> _state.value.selectedItems.first().form == _state.value.selectedItems.last().form
-                "&&" -> _state.value.selectedItems.first().form == _state.value.selectedItems.last().form
-                else -> false
-            }
-        else
-            return false
+        val (first, second) = items.first() to items.last()
+        return when (operator) {
+            ComparisonOperator.EQUAL -> first.form == second.form
+            ComparisonOperator.NOT_EQUAL -> first.form != second.form
+            ComparisonOperator.LESS_THAN -> first.value < second.value
+            ComparisonOperator.GREATER_THAN -> first.value > second.value
+            ComparisonOperator.LESS_EQUAL -> first.value <= second.value
+            ComparisonOperator.GREATER_EQUAL -> first.value >= second.value
+        }
     }
 }

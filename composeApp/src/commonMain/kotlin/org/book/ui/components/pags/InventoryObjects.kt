@@ -18,26 +18,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.book.ui.screen.rune.RuneViewModel
 import org.book.utils.data.RuneState
+import org.book.utils.enum.ComparisonOperator
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ObjectInventoryComponent(state: RuneState, viewModel: RuneViewModel) {
     viewModel.update {
         copy(
-            comparison = when (state.indexActual) {
-                2 -> "=="
-                3 -> "<"
-                4 -> ">="
-                5 -> "<="
-                6 -> "!="
-                7 -> "||"
-                8 -> "&&"
-                else -> ""
+            comparisonOperator = when (state.indexActual) {
+                2 -> ComparisonOperator.EQUAL
+                3 -> ComparisonOperator.LESS_THAN
+                4 -> ComparisonOperator.GREATER_EQUAL
+                5 -> ComparisonOperator.LESS_EQUAL
+                6 -> ComparisonOperator.NOT_EQUAL
+                else -> null
             }
         )
     }
 
-    val comparison = viewModel.comparison()
+    val comparison = viewModel.performComparison()
     val colorComparison = if (comparison) Color.Green else Color.Red
     viewModel.update { copy(isPagComplete = comparison) }
 
@@ -77,7 +76,7 @@ fun ContentInventory(
         Spacer(Modifier.weight(1f))
         if (state.selectedItems.size > 1) {
             Text(
-                text = state.comparison,
+                text = state.comparisonOperator?.symbol ?: "",
                 color = colorComparison,
                 fontWeight = FontWeight.Bold,
                 fontSize = 50.sp,

@@ -9,7 +9,6 @@ import org.book.ui.components.pags.InventoryComponent
 import org.book.ui.components.pags.TextRune
 import org.book.ui.components.pags.TutorialComponent
 import org.book.ui.navigation.NavControllerRunes
-import org.book.utils.data.RuneState
 import org.book.utils.enum.RunesEnum
 import org.koin.compose.viewmodel.koinViewModel
 

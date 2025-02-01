@@ -43,7 +43,7 @@ fun ControllerComponent(
                                     viewModel.update {
                                         copy(
                                             directionNavigation = true,
-                                            selectedItems = emptySet(),
+                                            selectedItems = emptyList(),
                                             isPagComplete = false,
                                             indexActual = indexActual + 1,
                                             runeActual = rune[indexActual + 1]
@@ -59,9 +59,9 @@ fun ControllerComponent(
                                     viewModel.update {
                                         copy(
                                             directionNavigation = false,
-                                            selectedItems = emptySet(),
+                                            selectedItems = emptyList(),
                                             isPagComplete = false,
-                                            indexActual = this.indexActual - 1
+                                            indexActual = indexActual - 1
                                         )
                                     }
                                     navController.popBackStack()
