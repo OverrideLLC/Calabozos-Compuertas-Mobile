@@ -48,25 +48,32 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
         navController = navController,
         runeActual = state.rune[state.indexActual],
         swipeLeft = {
-            viewModel.update {
-                copy(
-                    directionNavigation = true,
-                    selectedItems = emptySet(),
-                    isPagComplete = false
-                )
+            if (state.indexActual < state.rune.size - 1 && state.isPagComplete) {
+                viewModel.update {
+                    copy(
+                        directionNavigation = true,
+                        selectedItems = emptySet(),
+                        isPagComplete = false
+                    )
+                }
+                true
+            } else {
+                false
             }
-            state.indexActual < state.rune.size - 1
         },
         swipeRight = {
-            val aux = state.isPagComplete
-            viewModel.update {
-                copy(
-                    directionNavigation = true,
-                    selectedItems = emptySet(),
-                    isPagComplete = false
-                )
+            if (state.indexActual > 0 && state.isPagComplete) {
+                viewModel.update {
+                    copy(
+                        directionNavigation = false,
+                        selectedItems = emptySet(),
+                        isPagComplete = false
+                    )
+                }
+                true
+            } else {
+                false
             }
-            state.indexActual > 0 && aux
         },
     )
 
@@ -77,13 +84,7 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
         directionNavigation = state.directionNavigation
     )
 
-    if (state.rune[state.indexActual] == RunesEnum.entries[1] && state.rune[state.indexActual] >= RunesEnum.entries[3]) {
-        ObjectInventory(
-            state = state,
-            viewModel = viewModel
-        )
-    }
-    if (state.rune[state.indexActual] == RunesEnum.entries[2]){
+    if (state.indexActual >= 1) {
         ObjectInventory(
             state = state,
             viewModel = viewModel
@@ -91,7 +92,7 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
     }
 
     AnimatedVisibility(
-        visible = state.rune[state.indexActual] >= RunesEnum.entries[1],
+        visible = state.indexActual >= 1 && state.indexActual < state.rune.size - 1,
         enter = slideInVertically(
             initialOffsetY = { it },
             animationSpec = tween(durationMillis = 300)
@@ -112,9 +113,17 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
         )
     }
 
-    when {
-        state.rune[state.indexActual] == RunesEnum.entries[0] -> Tutorial(1)
-        state.rune[state.indexActual] == RunesEnum.entries[1] && !state.isClicked -> Tutorial(2)
+    when (state.indexActual) {
+        0 -> {
+            viewModel.update { copy(isPagComplete = true) }
+            Tutorial(1)
+        }
+
+        1 -> if (!state.isClicked) {
+            Tutorial(2)
+        } else {
+            viewModel.update { copy(isPagComplete = true) }
+        }
     }
 
     TextRune(
@@ -156,10 +165,12 @@ private fun ObjectInventory(state: RuneState, viewModel: RuneViewModel) {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            ContentInventory(
-                state = state,
-                colorComparison = colorComparison
-            )
+            if (state.selectedItems.isNotEmpty()) {
+                ContentInventory(
+                    state = state,
+                    colorComparison = colorComparison,
+                )
+            }
         }
     }
 }
