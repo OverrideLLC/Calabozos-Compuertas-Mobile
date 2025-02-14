@@ -14,15 +14,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import org.book.ui.screen.rune.RuneViewModel
-import org.book.utils.enum.RunesEnum
+import org.book.utils.data.RuneState
 
 @Composable
-fun Controller(
-    swipeLeft: () -> Boolean,
-    swipeRight: () -> Boolean,
-    runeActual: RunesEnum,
+fun ControllerComponent(
     viewModel: RuneViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    state: RuneState,
+    swipeToTheLeft: () -> Boolean,
+    swipeToTheRight: () -> Boolean,
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
@@ -41,18 +41,28 @@ fun Controller(
                     onDragEnd = {
                         when {
                             totalDragHorizontal < thresholdHorizontal -> {
-                                if (swipeLeft()) {
-                                    viewModel.update { copy(indexActual = this.indexActual + 1) }
+                                if (swipeToTheLeft()) {
+                                    viewModel.update {
+                                        copy(
+                                            indexActual = indexActual + 1,
+                                            runeActual = rune[indexActual + 1]
+                                        )
+                                    }
                                     navController.popBackStack()
-                                    navController.navigate(runeActual.dataRuneNavigation.routeRuneNext)
+                                    navController.navigate(state.runeActual.dataRuneNavigation.routeRuneNext)
                                 }
                             }
 
                             totalDragHorizontal > thresholdHorizontal -> {
-                                if (swipeRight()) {
-                                    viewModel.update { copy(indexActual = this.indexActual - 1) }
+                                if (swipeToTheRight()) {
+                                    viewModel.update {
+                                        copy(
+                                            indexActual = indexActual - 1,
+                                            runeActual = rune[indexActual - 1]
+                                        )
+                                    }
                                     navController.popBackStack()
-                                    navController.navigate(runeActual.dataRuneNavigation.routeRunePrevious)
+                                    navController.navigate(state.runeActual.dataRuneNavigation.routeRunePrevious)
                                 }
                             }
                         }
