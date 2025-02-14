@@ -20,7 +20,9 @@ import org.book.utils.data.RuneState
 fun ControllerComponent(
     viewModel: RuneViewModel,
     navController: NavHostController,
-    state: RuneState
+    state: RuneState,
+    swipeToTheLeft: () -> Boolean,
+    swipeToTheRight: () -> Boolean,
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
@@ -39,12 +41,9 @@ fun ControllerComponent(
                     onDragEnd = {
                         when {
                             totalDragHorizontal < thresholdHorizontal -> {
-                                if (state.indexActual < state.rune.size - 1 && state.isPagComplete) {
+                                if (swipeToTheLeft()) {
                                     viewModel.update {
                                         copy(
-                                            directionNavigation = true,
-                                            selectedItems = emptyList(),
-                                            isPagComplete = false,
                                             indexActual = indexActual + 1,
                                             runeActual = rune[indexActual + 1]
                                         )
@@ -55,13 +54,11 @@ fun ControllerComponent(
                             }
 
                             totalDragHorizontal > thresholdHorizontal -> {
-                                if (state.indexActual > 0 && state.isPagComplete) {
+                                if (swipeToTheRight()) {
                                     viewModel.update {
                                         copy(
-                                            directionNavigation = false,
-                                            selectedItems = emptyList(),
-                                            isPagComplete = false,
-                                            indexActual = indexActual - 1
+                                            indexActual = indexActual - 1,
+                                            runeActual = rune[indexActual - 1]
                                         )
                                     }
                                     navController.popBackStack()

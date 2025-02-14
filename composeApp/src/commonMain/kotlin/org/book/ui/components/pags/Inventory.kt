@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -37,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -50,6 +53,7 @@ import org.jetbrains.compose.resources.painterResource
 fun InventoryComponent(
     state: RuneState,
     viewModel: RuneViewModel,
+    comparative: () -> Unit
 ) {
     var offsetTarget by remember { mutableStateOf(550.dp) }
     var isExpanded by remember { mutableStateOf(false) }
@@ -63,7 +67,8 @@ fun InventoryComponent(
     if (state.indexActual >= 1) {
         ObjectInventoryComponent(
             state = state,
-            viewModel = viewModel
+            viewModel = viewModel,
+            comparation = comparative
         )
     }
 
@@ -132,10 +137,10 @@ fun InventoryComponent(
                                             shape = RoundedCornerShape(64.dp)
                                         )
                                 ) {
-                                    Icon(
+                                    Image(
                                         painter = painterResource(item.image),
                                         contentDescription = item.form,
-                                        tint = item.color
+                                        modifier = Modifier.size(90.dp).clip(CircleShape)
                                     )
                                 }
                             }

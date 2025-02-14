@@ -22,24 +22,30 @@ class RuneViewModel : ViewModel() {
             val newSelection = when {
                 item in current.selectedItems -> current.selectedItems - item
                 current.selectedItems.size < 2 -> current.selectedItems + item
-                else ->
-                    current.selectedItems.drop(1) + item
+                else -> current.selectedItems.drop(1) + item
             }
             current.copy(selectedItems = newSelection)
         }
     }
-    fun performComparison(): Boolean {
+
+    fun performComparison() {
         val (operator, items) = _state.value.run { comparisonOperator to selectedItems }
-        if (operator == null || items.size != 2) return false
+        if (operator == null || items.size != 2) return update { copy(isPagComplete = false) }
 
         val (first, second) = items.first() to items.last()
-        return when (operator) {
-            ComparisonOperator.EQUAL -> first.form == second.form
-            ComparisonOperator.NOT_EQUAL -> first.form != second.form
-            ComparisonOperator.LESS_THAN -> first.value < second.value
-            ComparisonOperator.GREATER_THAN -> first.value > second.value
-            ComparisonOperator.LESS_EQUAL -> first.value <= second.value
-            ComparisonOperator.GREATER_EQUAL -> first.value >= second.value
+        _state.update { current ->
+            current.copy(
+                isPagComplete = when (operator) {
+                    ComparisonOperator.EQUAL -> first.value == second.value
+                    ComparisonOperator.NOT_EQUAL -> first.value != second.value
+                    ComparisonOperator.LESS_THAN -> first.value < second.value
+                    ComparisonOperator.GREATER_THAN -> first.value > second.value
+                    ComparisonOperator.LESS_EQUAL -> first.value <= second.value
+                    ComparisonOperator.GREATER_EQUAL -> first.value >= second.value
+                    ComparisonOperator.OR -> first.form == second.form || first.value == second.value
+                    ComparisonOperator.AND -> first.form == second.form && first.value == second.value
+                }
+            )
         }
     }
 }

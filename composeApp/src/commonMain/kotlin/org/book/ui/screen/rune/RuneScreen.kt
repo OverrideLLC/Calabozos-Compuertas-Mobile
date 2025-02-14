@@ -16,7 +16,8 @@ import org.koin.compose.viewmodel.koinViewModel
 fun RuneScreen() = Screen()
 
 @Composable
-private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
+private fun Screen() {
+    val viewModel = koinViewModel<RuneViewModel>()
     val navController = rememberNavController()
     val state by viewModel.state.collectAsState()
 
@@ -30,17 +31,40 @@ private fun Screen(viewModel: RuneViewModel = koinViewModel()) {
         viewModel = viewModel,
         navController = navController,
         state = state,
+        swipeToTheLeft = {
+            if (state.indexActual < state.rune.size - 1 && state.isPagComplete) {
+                viewModel.update {
+                    copy(
+                        directionNavigation = true,
+                        selectedItems = emptyList(),
+                        isPagComplete = false
+                    )
+                }
+                true
+            } else {
+                false
+            }
+        },
+        swipeToTheRight = {
+            if (state.indexActual > 0 && state.isPagComplete) {
+                viewModel.update {
+                    copy(
+                        directionNavigation = false,
+                        selectedItems = emptyList(),
+                        isPagComplete = false
+                    )
+                }
+                true
+            } else {
+                false
+            }
+        }
     )
     InventoryComponent(
         state = state,
-        viewModel = viewModel
+        viewModel = viewModel,
+        comparative = { viewModel.performComparison() }
     )
-    TutorialComponent(
-        state = state,
-        viewModel = viewModel
-    )
-    TextRune(
-        rune = state.rune,
-        indexActual = state.indexActual
-    )
+    TutorialComponent(state = state, viewModel = viewModel)
+    TextRune(rune = state.rune, indexActual = state.indexActual)
 }

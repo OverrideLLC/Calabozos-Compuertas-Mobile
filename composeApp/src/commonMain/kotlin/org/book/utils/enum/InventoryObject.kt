@@ -1,12 +1,17 @@
 package org.book.utils.enum
 
 import androidx.compose.ui.graphics.Color
+import book.composeapp.generated.resources.NUMERO0
+import book.composeapp.generated.resources.NUMERO1
+import book.composeapp.generated.resources.NUMERO2
+import book.composeapp.generated.resources.NUMERO3
+import book.composeapp.generated.resources.NUMERO4
+import book.composeapp.generated.resources.NUMERO5
+import book.composeapp.generated.resources.NUMERO6
+import book.composeapp.generated.resources.NUMERO7
+import book.composeapp.generated.resources.NUMERO8
+import book.composeapp.generated.resources.NUMERO9
 import book.composeapp.generated.resources.Res
-import book.composeapp.generated.resources.change_history_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.crop_7_5_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.hexagon_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.rectangle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
 import org.jetbrains.compose.resources.DrawableResource
 
 enum class InventoryObject(
@@ -16,62 +21,125 @@ enum class InventoryObject(
     val color: Color = Color.White,
     val value: Int = 0
 ) {
-    Circular(
-        form = "circular",
-        image = Res.drawable.circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    CeroSecond(
+        form = "cero",
+        image = Res.drawable.NUMERO0,
         selected = false,
+        value = 0
     ),
-    Rectangular(
-        form = "rectangular",
-        image = Res.drawable.rectangle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Cero(
+        form = "cero",
+        image = Res.drawable.NUMERO0,
         selected = false,
-        value = 4
+        value = 0
     ),
-    Circular1(
-        form = "circular",
-        image = Res.drawable.circle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Uno(
+        form = "uno",
+        image = Res.drawable.NUMERO1,
         selected = false,
+        value = 1
     ),
-    Square(
-        form = "Square",
-        image = Res.drawable.crop_7_5_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Dos(
+        form = "dos",
+        image = Res.drawable.NUMERO2,
         selected = false,
-        value = 4
+        value = 2
     ),
-    Rectangular1(
-        form = "rectangular",
-        image = Res.drawable.rectangle_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
-        selected = false,
-        value = 4
-    ),
-    Triangle(
-        form = "Triangle",
-        image = Res.drawable.change_history_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Tres(
+        form = "tres",
+        image = Res.drawable.NUMERO3,
         selected = false,
         value = 3
     ),
-    Square1(
-        form = "Square",
-        image = Res.drawable.crop_7_5_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Cuatro(
+        form = "cuatro",
+        image = Res.drawable.NUMERO4,
         selected = false,
         value = 4
     ),
-    Hexagon(
-        form = "Hexagon",
-        image = Res.drawable.hexagon_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Cinco(
+        form = "cinco",
+        image = Res.drawable.NUMERO5,
+        selected = false,
+        value = 5
+    ),
+    Seis(
+        form = "seis",
+        image = Res.drawable.NUMERO6,
         selected = false,
         value = 6
     ),
-    Triangle1(
-        form = "Triangle",
-        image = Res.drawable.change_history_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    Siete(
+        form = "siete",
+        image = Res.drawable.NUMERO7,
+        selected = false,
+        value = 7
+    ),
+    Ocho(
+        form = "ocho",
+        image = Res.drawable.NUMERO8,
+        selected = false,
+        value = 8
+    ),
+    Nueve(
+        form = "NINE",
+        image = Res.drawable.NUMERO9,
+        selected = false,
+        value = 9
+    ),
+    UnoSecond(
+        form = "uno",
+        image = Res.drawable.NUMERO1,
+        selected = false,
+        value = 1
+    ),
+    DosSecond(
+        form = "dos",
+        image = Res.drawable.NUMERO2,
+        selected = false,
+        value = 2
+    ),
+    TresSecond(
+        form = "tres",
+        image = Res.drawable.NUMERO3,
         selected = false,
         value = 3
     ),
-    Hexagon1(
-        form = "Hexagon",
-        image = Res.drawable.hexagon_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24,
+    CuatroSecond(
+        form = "cuatro",
+        image = Res.drawable.NUMERO4,
+        selected = false,
+        value = 4
+    ),
+    CincoSecond(
+        form = "cinco",
+        image = Res.drawable.NUMERO5,
+        selected = false,
+        value = 5
+    ),
+    SeisSecond(
+        form = "seis",
+        image = Res.drawable.NUMERO6,
         selected = false,
         value = 6
     ),
+    SieteSecond(
+        form = "siete",
+        image = Res.drawable.NUMERO7,
+        selected = false,
+        value = 7
+    ),
+    OchoSecond(
+        form = "ocho",
+        image = Res.drawable.NUMERO8,
+        selected = false,
+        value = 8
+    ),
+    NueveSecond(
+        form = "NINE",
+        image = Res.drawable.NUMERO9,
+        selected = false,
+        value = 9
+    )
+
 }
