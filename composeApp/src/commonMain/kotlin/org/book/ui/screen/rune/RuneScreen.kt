@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
+import coil3.compose.LocalPlatformContext
 import org.book.ui.components.pags.ControllerComponent
 import org.book.ui.components.pags.InventoryComponent
 import org.book.ui.components.pags.TextRune
@@ -20,6 +21,8 @@ private fun Screen() {
     val viewModel = koinViewModel<RuneViewModel>()
     val navController = rememberNavController()
     val state by viewModel.state.collectAsState()
+
+    viewModel.preloadImages(platformContext = LocalPlatformContext.current)
 
     NavControllerRunes(
         navController = navController,

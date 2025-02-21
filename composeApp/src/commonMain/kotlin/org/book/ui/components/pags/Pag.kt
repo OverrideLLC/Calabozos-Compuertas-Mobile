@@ -7,17 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import coil3.compose.rememberAsyncImagePainter
 import org.book.utils.enum.RunesEnum
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Pag(dataRune: RunesEnum) {
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            painter = painterResource(dataRune.image),
+            painter = rememberAsyncImagePainter(dataRune.imageUrl),
             contentDescription = "",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxSize()

@@ -1,26 +1,13 @@
 package org.book.utils.enum
 
-import book.composeapp.generated.resources.Res
-import book.composeapp.generated.resources.pagina10_image_runes
-import book.composeapp.generated.resources.pagina1_image_runes
-import book.composeapp.generated.resources.pagina2_image_runes
-import book.composeapp.generated.resources.pagina3_image_runes
-import book.composeapp.generated.resources.pagina4_image_runes
-import book.composeapp.generated.resources.pagina5_image_runes
-import book.composeapp.generated.resources.pagina6_image_runes
-import book.composeapp.generated.resources.pagina7_image_runes
-import book.composeapp.generated.resources.pagina8_image_runes
-import book.composeapp.generated.resources.pagina9_image_runes
 import org.book.utils.data.DataRuneNavigation
 import org.book.utils.routes.RoutesRunes
-import org.jetbrains.compose.resources.DrawableResource
 
 enum class RunesEnum(
     val dataRuneNavigation: DataRuneNavigation,
     val texts: Map<String, String>,
-    val image: DrawableResource,
+    val imageUrl: String,
     val rune: String?,
-    val requiredComparisons: Int = 1
 ) {
     Pag1(
         dataRuneNavigation = DataRuneNavigation(
@@ -36,7 +23,7 @@ enum class RunesEnum(
                 clamaban el nombre de la hechizera, y ella debía responder al llamado...
             """.trimIndent()
         ),
-        image = Res.drawable.pagina1_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina1_image_runes.png",
         rune = null
     ),
     Pag2(
@@ -56,7 +43,7 @@ enum class RunesEnum(
                 y completar las pruebas que le vendrian.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina2_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina2_image_runes.png",
         rune = "="
     ),
     Pag3(
@@ -73,7 +60,7 @@ enum class RunesEnum(
                 tiene el mismo poder que otro.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina3_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina3_image_runes.png",
         rune = "=="
     ),
     Pag4(
@@ -97,9 +84,8 @@ enum class RunesEnum(
                 el hechizo de tu mano derecha.
             """.trimIndent(),
         ),
-        image = Res.drawable.pagina4_image_runes,
-        rune = "<>",
-        requiredComparisons = 2
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina4_image_runes.png",
+        rune = "<>"
     ),
     Pag5(
         dataRuneNavigation = DataRuneNavigation(
@@ -123,7 +109,7 @@ enum class RunesEnum(
                 Respondio la pequeña becaria.
             """.trimIndent(),
         ),
-        image = Res.drawable.pagina5_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina5_image_runes.png",
         rune = ">="
     ),
     Pag6(
@@ -142,7 +128,7 @@ enum class RunesEnum(
                 es menor o identico.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina6_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina6_image_runes.png",
         rune = "<="
     ),
     Pag7(
@@ -159,7 +145,7 @@ enum class RunesEnum(
                 diferentes, que no sean iguales.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina7_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina7_image_runes.png",
         rune = "!="
     ),
     Pag8(
@@ -185,7 +171,7 @@ enum class RunesEnum(
                 dijo la pequeña becaria
             """.trimIndent(),
         ),
-        image = Res.drawable.pagina8_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina8_image_runes.png",
         rune = "||"
     ),
     Pag9(
@@ -203,7 +189,7 @@ enum class RunesEnum(
                 condicionales al mismo timepo.
             """.trimIndent()
         ),
-        image = Res.drawable.pagina9_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina9_image_runes.png",
         rune = "&&"
     ),
     Pag10(
@@ -218,7 +204,7 @@ enum class RunesEnum(
                 quien le hacia el gran llamado...
             """.trimIndent()
         ),
-        image = Res.drawable.pagina10_image_runes,
+        imageUrl = "https://wbbnuyicfrlrpbrgdyqa.supabase.co/storage/v1/object/public/runes//pagina10_image_runes.png",
         rune = null
     );
 }

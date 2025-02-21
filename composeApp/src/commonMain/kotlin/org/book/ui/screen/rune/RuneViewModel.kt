@@ -1,13 +1,22 @@
 package org.book.ui.screen.rune
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.request.CachePolicy
+import coil3.request.ImageRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.book.utils.data.RuneState
 import org.book.utils.enum.ComparisonOperator
 import org.book.utils.enum.InventoryObject
+import org.book.utils.enum.RunesEnum
 
 class RuneViewModel : ViewModel() {
     private val _state: MutableStateFlow<RuneState> = MutableStateFlow(RuneState())
@@ -46,6 +55,22 @@ class RuneViewModel : ViewModel() {
                     ComparisonOperator.AND -> first.form == second.form && first.value == second.value
                 }
             )
+        }
+    }
+
+    fun preloadImages(platformContext: PlatformContext) {
+        val imageLoader = ImageLoader(context = platformContext)
+        viewModelScope.launch(Dispatchers.IO) {
+            RunesEnum.entries.forEach {
+                RunesEnum.entries.forEach { rune ->
+                    val request = ImageRequest.Builder(context = platformContext)
+                        .data(rune.imageUrl)
+                        .diskCachePolicy(CachePolicy.ENABLED)
+                        .memoryCachePolicy(CachePolicy.ENABLED)
+                        .build()
+                    imageLoader.execute(request)
+                }
+            }
         }
     }
 }

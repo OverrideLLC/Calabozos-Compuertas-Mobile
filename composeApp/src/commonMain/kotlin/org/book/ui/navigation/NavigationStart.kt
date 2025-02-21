@@ -20,7 +20,6 @@ import org.book.utils.routes.RoutesStart
 @Composable
 fun NavigationStart() {
     val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = RoutesStart.Start.route,
