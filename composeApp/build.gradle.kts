@@ -35,6 +35,8 @@ kotlin {
         commonMain.dependencies {
             //MODULES
             implementation(projects.runesBook)
+            implementation(projects.resources)
+            implementation(projects.shared)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

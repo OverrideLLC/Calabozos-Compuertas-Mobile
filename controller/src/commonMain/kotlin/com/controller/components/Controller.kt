@@ -19,7 +19,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ControllerComponent(
-    viewModel: ControllerViewModel = koinViewModel(),
+    viewModel: ControllerViewModel,
     navController: NavHostController,
     state: ControllerState,
     swipeToTheLeft: () -> Boolean,

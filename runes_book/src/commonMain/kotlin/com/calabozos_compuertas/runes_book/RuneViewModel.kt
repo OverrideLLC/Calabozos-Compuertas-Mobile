@@ -19,10 +19,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RuneViewModel : ViewModel() {
-    private val _state: MutableStateFlow<ControllerState> = MutableStateFlow(ControllerState())
-    val state: StateFlow<ControllerState> = _state.asStateFlow()
+    private val _state: MutableStateFlow<RunesState> = MutableStateFlow(RunesState())
+    val state: StateFlow<RunesState> = _state.asStateFlow()
 
-    fun update(update: ControllerState.() -> ControllerState) {
+    fun update(update: RunesState.() -> RunesState) {
         _state.value = update(_state.value)
     }
 
@@ -46,8 +46,11 @@ class RuneViewModel : ViewModel() {
             )
         }
     }
-    fun preloadImages(platformContext: PlatformContext) {
-        update { copy(isLoading = true) }
+
+    fun preloadImages(
+        platformContext: PlatformContext,
+        isComplete: (Boolean) -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val imageLoader = ImageLoader(context = platformContext)
             RunesEnum.entries.forEach { rune ->
@@ -67,7 +70,8 @@ class RuneViewModel : ViewModel() {
                     .build()
                 imageLoader.execute(request)
             }
-            update { copy(isLoading = false) }
+        }.invokeOnCompletion {
+            isComplete(true)
         }
     }
 }

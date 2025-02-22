@@ -52,7 +52,7 @@ import com.shared.enum.RunesEnum
 @Composable
 fun InventoryComponent(
     state: ControllerState,
-    viewModel: ControllerViewModel = ControllerViewModel(),
+    viewModel: ControllerViewModel,
     comparative: () -> Unit
 ) {
     var offsetTarget by remember { mutableStateOf(550.dp) }

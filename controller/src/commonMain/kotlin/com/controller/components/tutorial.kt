@@ -37,7 +37,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun TutorialComponent(
     state: ControllerState,
-    viewModel: ControllerViewModel = ControllerViewModel()
+    viewModel: ControllerViewModel
 ) {
     val density = LocalDensity.current
     val offsetDp = 10.dp

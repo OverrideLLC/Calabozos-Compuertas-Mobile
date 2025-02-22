@@ -1,17 +1,18 @@
 package com.calabozos_compuertas.runes_book
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import coil3.PlatformContext
-import com.controller.ControllerState
+import com.controller.ControllerViewModel
 import com.controller.components.ControllerComponent
 import com.controller.components.InventoryComponent
 import com.controller.components.TextRune
@@ -23,43 +24,44 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun RuneScreen(
     platformContext: PlatformContext,
-    viewModel: RuneViewModel = koinViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
-    viewModel.preloadImages(platformContext)
-    Crossfade(
-        targetState = state.isLoading,
-        content = { f ->
-            if (f) {
-                Box(
-                    modifier = Modifier.background(color = Color.White),
-                    content = {
-                        LottieAnimationCommon()
-                    }
-                )
-            } else {
-                Screen(viewModel, state)
-            }
-        }
+    val viewModel = koinViewModel<RuneViewModel>()
+    var isLoading by remember { mutableStateOf(true) }
+    viewModel.preloadImages(
+        platformContext = platformContext,
+        isComplete = { isLoading = !it }
     )
+    if (isLoading) {
+        Box(
+            modifier = Modifier.background(color = Color.White),
+            content = {
+                LottieAnimationCommon()
+            }
+        )
+    } else {
+        Screen(viewModel)
+    }
 }
 
 @Composable
-private fun Screen(viewModel: RuneViewModel, state: ControllerState) {
+private fun Screen(viewModel: RuneViewModel) {
     val navController = rememberNavController()
+    val controllerViewModel = koinViewModel<ControllerViewModel>()
+    val stateController by controllerViewModel.state.collectAsState()
 
     NavControllerRunes(
         navController = navController,
         listRune = RunesEnum.entries,
-        indexActual = state.indexActual,
-        navigationDirection = state.directionNavigation
+        indexActual = stateController.indexActual,
+        navigationDirection = stateController.directionNavigation
     )
     ControllerComponent(
         navController = navController,
-        state = state,
+        state = stateController,
+        viewModel = controllerViewModel,
         swipeToTheLeft = {
-            if (state.indexActual < state.rune.size - 1 && state.isPagComplete) {
-                viewModel.update {
+            if (stateController.indexActual < stateController.rune.size - 1 && stateController.isPagComplete) {
+                controllerViewModel.update {
                     copy(
                         directionNavigation = true,
                         selectedItems = emptyList(),
@@ -72,8 +74,8 @@ private fun Screen(viewModel: RuneViewModel, state: ControllerState) {
             }
         },
         swipeToTheRight = {
-            if (state.indexActual > 0 && state.isPagComplete) {
-                viewModel.update {
+            if (stateController.indexActual > 0) {
+                controllerViewModel.update {
                     copy(
                         directionNavigation = false,
                         selectedItems = emptyList(),
@@ -87,9 +89,10 @@ private fun Screen(viewModel: RuneViewModel, state: ControllerState) {
         }
     )
     InventoryComponent(
-        state = state,
+        state = stateController,
+        viewModel = controllerViewModel,
         comparative = { viewModel.performComparison() }
     )
-    TutorialComponent(state = state)
-    TextRune(rune = state.rune, indexActual = state.indexActual)
+    TutorialComponent(state = stateController, controllerViewModel)
+    TextRune(rune = stateController.rune, indexActual = stateController.indexActual)
 }

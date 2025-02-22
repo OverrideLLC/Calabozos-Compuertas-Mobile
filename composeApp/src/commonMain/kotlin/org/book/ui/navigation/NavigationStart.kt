@@ -15,8 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.LocalPlatformContext
 import com.calabozos_compuertas.runes_book.RuneScreen
+import com.shared.routes.RoutesStart
 import org.book.ui.screen.start.StartScreen
-import org.book.utils.routes.RoutesStart
 
 @Composable
 fun NavigationStart() {
