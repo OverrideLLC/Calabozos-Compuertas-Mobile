@@ -50,6 +50,7 @@ kotlin {
                 implementation(libs.androidx.lifecycle.runtime.compose)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 api(compose.components.resources)
+                implementation("io.github.ismai117:kottie:2.0.1")
             }
         }
 

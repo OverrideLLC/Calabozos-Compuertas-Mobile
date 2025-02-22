@@ -13,19 +13,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.book.ui.screen.rune.RuneScreen
+import coil3.compose.LocalPlatformContext
+import com.calabozos_compuertas.runes_book.RuneScreen
 import org.book.ui.screen.start.StartScreen
 import org.book.utils.routes.RoutesStart
 
 @Composable
 fun NavigationStart() {
     val navController = rememberNavController()
+    val context = LocalPlatformContext.current
     NavHost(
         navController = navController,
         startDestination = RoutesStart.Start.route,
     ) {
         composable(RoutesStart.Start.route) { StartScreen(navController) }
-        composable(RoutesStart.RunesBook.route) { RuneScreen() }
+        composable(RoutesStart.RunesBook.route) { RuneScreen(context) }
         composable(RoutesStart.LogicBook.route) {
             Box(
                 modifier = Modifier.fillMaxSize().background(colorScheme.background),

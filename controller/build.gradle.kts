@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.calabozos_compuertas.runes_book"
+        namespace = "com.controller"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -20,15 +20,14 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
-
-    val xcfName = "runes_bookKit"
+    val xcfName = "controllerKit"
 
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
             baseName = xcfName
             isStatic = true
         }
@@ -38,10 +37,10 @@ kotlin {
         commonMain {
             dependencies {
                 //MODULES
-                api(projects.controller)
                 implementation(projects.shared)
                 implementation(projects.resources)
 
+                //COMPOSE
                 implementation(libs.kotlin.stdlib)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -56,14 +55,19 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
-                implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-                implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network.okhttp)
             }
         }
 
         commonTest {
             dependencies {
                 implementation(libs.kotlin.test)
+            }
+        }
+
+        androidMain {
+            dependencies {
             }
         }
 

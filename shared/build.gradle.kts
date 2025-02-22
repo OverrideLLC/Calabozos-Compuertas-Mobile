@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.calabozos_compuertas.runes_book"
+        namespace = "com.shared"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -21,7 +21,7 @@ kotlin {
         }
     }
 
-    val xcfName = "runes_bookKit"
+    val xcfName = "sharedKit"
 
     listOf(
         iosX64(),
@@ -37,33 +37,26 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                //MODULES
-                api(projects.controller)
-                implementation(projects.shared)
-                implementation(projects.resources)
-
                 implementation(libs.kotlin.stdlib)
-                implementation(compose.runtime)
+                implementation(compose.components.uiToolingPreview)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+                implementation(compose.runtime)
                 implementation(compose.ui)
-                api(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
-                implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtime.compose)
-                implementation(libs.navegation.compose)
-                implementation(project.dependencies.platform(libs.koin.bom))
-                implementation(libs.koin.core)
-                implementation(libs.koin.compose)
-                implementation(libs.koin.compose.viewmodel)
-                implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-                implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+                implementation(libs.androidx.lifecycle.viewmodel)
+                api(compose.components.resources)
             }
         }
 
         commonTest {
             dependencies {
-                implementation(libs.kotlin.test)
+                implementation(kotlin("test"))
+            }
+        }
+
+        androidMain {
+            dependencies {
             }
         }
 
@@ -72,6 +65,11 @@ kotlin {
                 implementation(libs.androidx.runner)
                 implementation(libs.androidx.core)
                 implementation(libs.androidx.junit)
+            }
+        }
+
+        iosMain {
+            dependencies {
             }
         }
     }
