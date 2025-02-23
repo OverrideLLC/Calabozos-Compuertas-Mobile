@@ -9,7 +9,7 @@ import kotlin.enums.EnumEntries
 
 data class ControllerState(
     val rune: EnumEntries<RunesEnum> = RunesEnum.entries,
-    var indexActual: Int = 0,
+    var indexActual: Int = 7,
     var runeActual: RunesEnum = rune[indexActual],
     var directionNavigation: Boolean = false,
     var expandedDp: Dp = 600.dp,
@@ -20,4 +20,5 @@ data class ControllerState(
     var comparisonOperator: ComparisonOperator? = null,
     var isPagComplete: Boolean = false,
     var isLoading: Boolean = true,
+    var isExpandedInventory: Boolean = false
 )

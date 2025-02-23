@@ -60,6 +60,7 @@ private fun Screen(viewModel: RuneViewModel) {
         state = stateController,
         viewModel = controllerViewModel,
         swipeToTheLeft = {
+            println("Swipe to the left")
             if (stateController.indexActual < stateController.rune.size - 1 && stateController.isPagComplete) {
                 controllerViewModel.update {
                     copy(
@@ -74,6 +75,7 @@ private fun Screen(viewModel: RuneViewModel) {
             }
         },
         swipeToTheRight = {
+            println("Swipe to the right")
             if (stateController.indexActual > 0) {
                 controllerViewModel.update {
                     copy(
@@ -86,12 +88,24 @@ private fun Screen(viewModel: RuneViewModel) {
             } else {
                 false
             }
+        },
+        swipeToTheUp = {
+            println("Swipe to the up")
+            controllerViewModel.update { copy(isExpandedInventory = true) }
+        },
+        swipeToTheDown = {
+            println("Swipe to the down")
+            controllerViewModel.update { copy(isExpandedInventory = false) }
         }
     )
     InventoryComponent(
         state = stateController,
         viewModel = controllerViewModel,
-        comparative = { viewModel.performComparison() }
+        comparative = {
+            viewModel.performComparison(stateController).also {
+                controllerViewModel.update { copy(isPagComplete = it) }
+            }
+        }
     )
     TutorialComponent(state = stateController, controllerViewModel)
     TextRune(rune = stateController.rune, indexActual = stateController.indexActual)

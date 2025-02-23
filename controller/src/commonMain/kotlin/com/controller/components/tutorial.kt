@@ -31,6 +31,8 @@ import com.controller.ControllerViewModel
 import com.controller.ControllerState
 import com.resources.Res
 import com.resources.swipe_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.resources.swipe_down_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.resources.swipe_up_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
 import com.resources.touch_app_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
 import org.jetbrains.compose.resources.painterResource
 
@@ -57,9 +59,10 @@ fun TutorialComponent(
             Tutorial1(animatedOffset)
         }
 
-        1 -> if (state.isClicked) {
+        1 -> if (state.isExpandedInventory) {
             viewModel.update { copy(isPagComplete = true) }
-        } else {
+            Tutorial2_1(animatedOffset)
+        } else if (!state.isPagComplete){
             Tutorial2(animatedOffset)
         }
     }
@@ -113,13 +116,30 @@ private fun Tutorial2(animatedOffset: State<Float>) {
         contentAlignment = Alignment.BottomCenter
     ) {
         Icon(
-            painter = painterResource(Res.drawable.touch_app_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24),
+            painter = painterResource(Res.drawable.swipe_up_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24),
             contentDescription = null,
             tint = Color.White,
             modifier = Modifier
                 .size(70.dp)
                 .graphicsLayer { translationY = animatedOffset.value }
-                .rotate(180f)
         )
     }
 }
+
+@Composable
+private fun Tutorial2_1(animatedOffset: State<Float>) {
+    Box(
+        modifier = Modifier.fillMaxSize().padding(bottom = 15.dp),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Icon(
+            painter = painterResource(Res.drawable.swipe_down_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24),
+            contentDescription = null,
+            tint = Color.White,
+            modifier = Modifier
+                .size(70.dp)
+                .graphicsLayer { translationY = -animatedOffset.value }
+        )
+    }
+}
+

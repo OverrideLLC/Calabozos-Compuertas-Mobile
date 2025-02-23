@@ -26,24 +26,20 @@ class RuneViewModel : ViewModel() {
         _state.value = update(_state.value)
     }
 
-    fun performComparison() {
-        val (operator, items) = _state.value.run { comparisonOperator to selectedItems }
-        if (operator == null || items.size != 2) return update { copy(isPagComplete = false) }
+    fun performComparison(state: ControllerState): Boolean {
+        val (operator, items) = state.run { comparisonOperator to selectedItems }
+        if (operator == null || items.size != 2) return false
 
         val (first, second) = items.first() to items.last()
-        _state.update { current ->
-            current.copy(
-                isPagComplete = when (operator) {
-                    ComparisonOperator.EQUAL -> first.value == second.value
-                    ComparisonOperator.NOT_EQUAL -> first.value != second.value
-                    ComparisonOperator.LESS_THAN -> first.value < second.value
-                    ComparisonOperator.GREATER_THAN -> first.value > second.value
-                    ComparisonOperator.LESS_EQUAL -> first.value <= second.value
-                    ComparisonOperator.GREATER_EQUAL -> first.value >= second.value
-                    ComparisonOperator.OR -> first.name == second.name || first.value == second.value
-                    ComparisonOperator.AND -> first.name == second.name && first.value == second.value
-                }
-            )
+        return when (operator) {
+            ComparisonOperator.EQUAL -> first.value == second.value
+            ComparisonOperator.NOT_EQUAL -> first.value != second.value
+            ComparisonOperator.LESS_THAN -> first.value < second.value
+            ComparisonOperator.GREATER_THAN -> first.value > second.value
+            ComparisonOperator.LESS_EQUAL -> first.value <= second.value
+            ComparisonOperator.GREATER_EQUAL -> first.value >= second.value
+            ComparisonOperator.OR -> true || first.value == second.value
+            ComparisonOperator.AND -> true && first.value == second.value
         }
     }
 
@@ -65,6 +61,15 @@ class RuneViewModel : ViewModel() {
             InventoryObject.entries.forEach { inventory ->
                 val request = ImageRequest.Builder(context = platformContext)
                     .data(inventory.imageUrl)
+                    .diskCachePolicy(CachePolicy.ENABLED)
+                    .memoryCachePolicy(CachePolicy.ENABLED)
+                    .build()
+                imageLoader.execute(request)
+            }
+
+            ComparisonOperator.entries.forEach { operator ->
+                val request = ImageRequest.Builder(context = platformContext)
+                    .data(operator.icon)
                     .diskCachePolicy(CachePolicy.ENABLED)
                     .memoryCachePolicy(CachePolicy.ENABLED)
                     .build()

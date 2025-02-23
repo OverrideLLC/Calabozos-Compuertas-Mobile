@@ -1,6 +1,7 @@
 package com.controller.components
 
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -13,9 +14,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.controller.ControllerViewModel
 import com.controller.ControllerState
-import org.koin.compose.viewmodel.koinViewModel
+import com.controller.ControllerViewModel
 
 @Composable
 fun ControllerComponent(
@@ -24,14 +24,40 @@ fun ControllerComponent(
     state: ControllerState,
     swipeToTheLeft: () -> Boolean,
     swipeToTheRight: () -> Boolean,
+    swipeToTheUp: () -> Unit,
+    swipeToTheDown: () -> Unit,
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
     val thresholdHorizontal = with(density) { 100.dp.toPx() }
+    var totalDragVertical by remember { mutableStateOf(0f) }
+    val thresholdVertical = with(density) { 200.dp.toPx() }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .pointerInput(Unit) {
+                detectVerticalDragGestures(
+                    onDragStart = { totalDragVertical = 0f },
+                    onVerticalDrag = { change, dragAmount ->
+                        change.consume()
+                        totalDragVertical += dragAmount
+                    },
+                    onDragEnd = {
+                        when {
+                            // Swipe hacia arriba (desplazamiento negativo supera el umbral)
+                            totalDragVertical < -thresholdVertical -> {
+                                swipeToTheUp()
+                            }
+                            // Opcional: Swipe hacia abajo si es necesario
+                            totalDragVertical > thresholdVertical -> {
+                                swipeToTheDown()
+                            }
+                        }
+                        totalDragVertical = 0f
+                    }
+                )
+            }
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
                     onDragStart = { totalDragHorizontal = 0f },
