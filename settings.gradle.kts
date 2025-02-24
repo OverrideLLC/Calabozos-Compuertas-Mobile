@@ -29,3 +29,8 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":resources")
+include(":runes_book")
+include(":controller")
+include(":shared")
+include(":logic_book")
