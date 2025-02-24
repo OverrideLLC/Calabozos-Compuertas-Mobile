@@ -13,18 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.controller.ControllerState
 import com.controller.ControllerViewModel
 
 @Composable
 fun ControllerComponent(
-    viewModel: ControllerViewModel,
-    swipeToTheLeft: () -> Boolean,
-    swipeToTheRight: () -> Boolean,
+    swipeToTheLeft: () -> Unit,
+    swipeToTheRight: () -> Unit,
     swipeToTheUp: () -> Unit,
     swipeToTheDown: () -> Unit,
-    nav: (String) -> Unit,
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
@@ -67,17 +63,11 @@ fun ControllerComponent(
                     onDragEnd = {
                         when {
                             totalDragHorizontal < thresholdHorizontal -> {
-                                if (swipeToTheLeft()) {
-                                    viewModel.update { copy(indexActual = indexActual + 1) }
-                                    nav("left")
-                                }
+                                swipeToTheLeft()
                             }
 
                             totalDragHorizontal > thresholdHorizontal -> {
-                                if (swipeToTheRight()) {
-                                    viewModel.update { copy(indexActual = indexActual - 1,) }
-                                    nav("right")
-                                }
+                                swipeToTheRight()
                             }
                         }
                         totalDragHorizontal = 0f

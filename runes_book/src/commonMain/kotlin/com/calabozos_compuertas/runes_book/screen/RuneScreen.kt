@@ -59,7 +59,6 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
         navigationDirection = stateController.directionNavigation
     )
     ControllerComponent(
-        viewModel = controllerViewModel,
         swipeToTheLeft = {
             println("Swipe to the left")
             if (stateController.indexActual < stateRune.rune.size - 1 && stateController.isPagComplete) {
@@ -67,6 +66,7 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
                     copy(
                         directionNavigation = true,
                         isPagComplete = false,
+                        indexActual = indexActual + 1
                     )
                 }
                 viewModel.update {
@@ -75,9 +75,8 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
                         runeActual = rune[stateController.indexActual]
                     )
                 }
-                true
-            } else {
-                false
+                navController.popBackStack()
+                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRuneNext)
             }
         },
         swipeToTheRight = {
@@ -87,6 +86,7 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
                     copy(
                         directionNavigation = false,
                         isPagComplete = false,
+                        indexActual = indexActual - 1
                     )
                 }
                 viewModel.update {
@@ -95,9 +95,8 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
                         runeActual = rune[stateController.indexActual],
                     )
                 }
-                true
-            } else {
-                false
+                navController.popBackStack()
+                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRunePrevious)
             }
         },
         swipeToTheUp = {
@@ -108,16 +107,6 @@ private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
             println("Swipe to the down")
             viewModel.update { copy(isExpandedInventory = false) }
         },
-        nav = {
-            println("Nav")
-            if (it == "left") {
-                navController.popBackStack()
-                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRuneNext)
-            } else {
-                navController.popBackStack()
-                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRunePrevious)
-            }
-        }
     )
     InventoryComponent(
         stateRune = stateRune,

@@ -13,4 +13,15 @@ class ControllerViewModel : ViewModel() {
     fun update(update: ControllerState.() -> ControllerState) {
         _state.value = update(_state.value)
     }
+
+    fun indexPlus() {
+        _state.update {
+            it.copy(indexActual = it.indexActual + 1)
+        }
+    }
+    fun indexMinus(){
+        _state.update {
+            it.copy(indexActual = it.indexActual - 1)
+        }
+    }
 }

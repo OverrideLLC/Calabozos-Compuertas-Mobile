@@ -38,6 +38,7 @@ kotlin {
             implementation(projects.runesBook)
             implementation(projects.resources)
             implementation(projects.shared)
+            implementation(projects.logicBook)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
