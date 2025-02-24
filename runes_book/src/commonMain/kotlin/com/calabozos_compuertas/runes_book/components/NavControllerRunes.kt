@@ -1,4 +1,4 @@
-package com.calabozos_compuertas.runes_book
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.controller.components.Pag
 import com.shared.enum.RunesEnum
 import com.shared.routes.RoutesRunes
 
@@ -41,11 +40,7 @@ fun NavControllerRunes(
         exitTransition = {
             slideOutHorizontally(
                 targetOffsetX = {
-                    if (navigationDirection) {
-                        -it
-                    } else {
-                        it
-                    }
+                    if (navigationDirection) -it else it
                 },
                 animationSpec = tween(500)
             ) + fadeOut(animationSpec = tween(3500))

@@ -1,4 +1,4 @@
-package com.controller.components
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.calabozos_compuertas.runes_book.utils.RunesState
 import com.controller.ControllerViewModel
 import com.controller.ControllerState
 import com.resources.Res
@@ -38,7 +39,8 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TutorialComponent(
-    state: ControllerState,
+    stateRune: RunesState,
+    stateController: ControllerState,
     viewModel: ControllerViewModel
 ) {
     val density = LocalDensity.current
@@ -53,16 +55,16 @@ fun TutorialComponent(
             repeatMode = RepeatMode.Reverse
         )
     )
-    when (state.indexActual) {
+    when (stateController.indexActual) {
         0 -> {
             viewModel.update { copy(isPagComplete = true) }
             Tutorial1(animatedOffset)
         }
 
-        1 -> if (state.isExpandedInventory) {
+        1 -> if (stateRune.isExpandedInventory) {
             viewModel.update { copy(isPagComplete = true) }
             Tutorial2_1(animatedOffset)
-        } else if (!state.isPagComplete){
+        } else if (!stateController.isPagComplete){
             Tutorial2(animatedOffset)
         }
     }

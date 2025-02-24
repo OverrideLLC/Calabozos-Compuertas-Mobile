@@ -1,4 +1,4 @@
-package com.calabozos_compuertas.runes_book
+package com.calabozos_compuertas.runes_book.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,7 @@ import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
+import com.calabozos_compuertas.runes_book.utils.RunesState
 import com.controller.ControllerState
 import com.shared.enum.ComparisonOperator
 import com.shared.enum.InventoryObject
@@ -26,8 +27,8 @@ class RuneViewModel : ViewModel() {
         _state.value = update(_state.value)
     }
 
-    fun performComparison(state: ControllerState): Boolean {
-        val (operator, items) = state.run { comparisonOperator to selectedItems }
+    fun performComparison(): Boolean {
+        val (operator, items) = _state.value.run { comparisonOperator to selectedItems }
         if (operator == null || items.size != 2) return false
 
         val (first, second) = items.first() to items.last()
@@ -77,6 +78,17 @@ class RuneViewModel : ViewModel() {
             }
         }.invokeOnCompletion {
             isComplete(true)
+        }
+    }
+
+    fun toggleSelection(item: InventoryObject) {
+        _state.update { current ->
+            val newSelection = when {
+                item in current.selectedItems -> current.selectedItems - item
+                current.selectedItems.size < 2 -> current.selectedItems + item
+                else -> current.selectedItems.drop(1) + item
+            }
+            current.copy(selectedItems = newSelection)
         }
     }
 }

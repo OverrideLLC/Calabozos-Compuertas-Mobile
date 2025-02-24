@@ -31,6 +31,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
+            implementation("com.google.android.exoplayer:exoplayer:2.18.1")
         }
         commonMain.dependencies {
             //MODULES

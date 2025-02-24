@@ -1,4 +1,4 @@
-package com.calabozos_compuertas.runes_book
+package com.calabozos_compuertas.runes_book.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,11 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import coil3.PlatformContext
+import com.calabozos_compuertas.runes_book.components.InventoryComponent
+import com.calabozos_compuertas.runes_book.components.NavControllerRunes
+import com.calabozos_compuertas.runes_book.components.TextRune
+import com.calabozos_compuertas.runes_book.components.TutorialComponent
+import com.calabozos_compuertas.runes_book.utils.RunesState
 import com.controller.ControllerViewModel
 import com.controller.components.ControllerComponent
-import com.controller.components.InventoryComponent
-import com.controller.components.TextRune
-import com.controller.components.TutorialComponent
 import com.resources.LottieAnimationCommon
 import com.shared.enum.RunesEnum
 import org.koin.compose.viewmodel.koinViewModel
@@ -27,6 +29,7 @@ fun RuneScreen(
 ) {
     val viewModel = koinViewModel<RuneViewModel>()
     var isLoading by remember { mutableStateOf(true) }
+    val state by viewModel.state.collectAsState()
     viewModel.preloadImages(
         platformContext = platformContext,
         isComplete = { isLoading = !it }
@@ -39,12 +42,12 @@ fun RuneScreen(
             }
         )
     } else {
-        Screen(viewModel)
+        Screen(viewModel, state)
     }
 }
 
 @Composable
-private fun Screen(viewModel: RuneViewModel) {
+private fun Screen(viewModel: RuneViewModel, stateRune: RunesState) {
     val navController = rememberNavController()
     val controllerViewModel = koinViewModel<ControllerViewModel>()
     val stateController by controllerViewModel.state.collectAsState()
@@ -56,17 +59,20 @@ private fun Screen(viewModel: RuneViewModel) {
         navigationDirection = stateController.directionNavigation
     )
     ControllerComponent(
-        navController = navController,
-        state = stateController,
         viewModel = controllerViewModel,
         swipeToTheLeft = {
             println("Swipe to the left")
-            if (stateController.indexActual < stateController.rune.size - 1 && stateController.isPagComplete) {
+            if (stateController.indexActual < stateRune.rune.size - 1 && stateController.isPagComplete) {
                 controllerViewModel.update {
                     copy(
                         directionNavigation = true,
+                        isPagComplete = false,
+                    )
+                }
+                viewModel.update {
+                    copy(
                         selectedItems = emptyList(),
-                        isPagComplete = false
+                        runeActual = rune[stateController.indexActual]
                     )
                 }
                 true
@@ -80,8 +86,13 @@ private fun Screen(viewModel: RuneViewModel) {
                 controllerViewModel.update {
                     copy(
                         directionNavigation = false,
+                        isPagComplete = false,
+                    )
+                }
+                viewModel.update {
+                    copy(
                         selectedItems = emptyList(),
-                        isPagComplete = false
+                        runeActual = rune[stateController.indexActual],
                     )
                 }
                 true
@@ -91,22 +102,37 @@ private fun Screen(viewModel: RuneViewModel) {
         },
         swipeToTheUp = {
             println("Swipe to the up")
-            controllerViewModel.update { copy(isExpandedInventory = true) }
+            viewModel.update { copy(isExpandedInventory = true) }
         },
         swipeToTheDown = {
             println("Swipe to the down")
-            controllerViewModel.update { copy(isExpandedInventory = false) }
+            viewModel.update { copy(isExpandedInventory = false) }
+        },
+        nav = {
+            println("Nav")
+            if (it == "left") {
+                navController.popBackStack()
+                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRuneNext)
+            } else {
+                navController.popBackStack()
+                navController.navigate(stateRune.runeActual.dataRuneNavigation.routeRunePrevious)
+            }
         }
     )
     InventoryComponent(
-        state = stateController,
-        viewModel = controllerViewModel,
+        stateRune = stateRune,
+        viewModel = viewModel,
+        stateController = stateController,
         comparative = {
-            viewModel.performComparison(stateController).also {
+            viewModel.performComparison().also {
                 controllerViewModel.update { copy(isPagComplete = it) }
             }
         }
     )
-    TutorialComponent(state = stateController, controllerViewModel)
-    TextRune(rune = stateController.rune, indexActual = stateController.indexActual)
+    TutorialComponent(
+        stateRune = stateRune,
+        stateController = stateController,
+        viewModel = controllerViewModel
+    )
+    TextRune(rune = stateRune.rune, indexActual = stateController.indexActual)
 }

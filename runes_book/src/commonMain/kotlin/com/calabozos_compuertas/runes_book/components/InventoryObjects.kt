@@ -1,4 +1,4 @@
-package com.controller.components
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -19,22 +19,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.compose.rememberAsyncImagePainter
+import com.calabozos_compuertas.runes_book.screen.RuneViewModel
+import com.calabozos_compuertas.runes_book.utils.RunesState
 import com.controller.ControllerState
-import com.controller.ControllerViewModel
 import com.shared.enum.ComparisonOperator
 import com.shared.enum.InventoryObject
 import com.shared.routes.RoutesRunes
 
 @Composable
 fun ObjectInventoryComponent(
-    state: ControllerState,
-    viewModel: ControllerViewModel,
+    stateController: ControllerState,
+    stateRune: RunesState,
+    viewModel: RuneViewModel,
     comparator: () -> Unit
 ) {
     viewModel.update {
         copy(
-            comparisonOperator = when (state.indexActual) {
+            comparisonOperator = when (stateController.indexActual) {
                 2 -> ComparisonOperator.EQUAL
                 3 -> ComparisonOperator.LESS_THAN
                 4 -> ComparisonOperator.GREATER_EQUAL
@@ -47,7 +48,7 @@ fun ObjectInventoryComponent(
         )
     }
     AnimatedVisibility(
-        visible = state.selectedItems.isNotEmpty(),
+        visible = stateRune.selectedItems.isNotEmpty(),
         enter = fadeIn(),
         exit = fadeOut()
     ) {
@@ -55,14 +56,19 @@ fun ObjectInventoryComponent(
             modifier = Modifier.fillMaxSize()
         ) {
 
-            ContentInventory(state = state, comparator = comparator)
+            ContentInventory(
+                stateController = stateController,
+                comparator = comparator,
+                stateRune = stateRune
+            )
         }
     }
 }
 
 @Composable
 fun ContentInventory(
-    state: ControllerState,
+    stateController: ControllerState,
+    stateRune: RunesState,
     comparator: () -> Unit
 ) {
     Row(
@@ -70,13 +76,18 @@ fun ContentInventory(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxSize()
-            .background(if (state.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f))
+            .background(if (stateController.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f))
     ) {
-        if (state.selectedItems.isNotEmpty() && (state.runeActual.dataRuneNavigation.routeRuneActual == RoutesRunes.Pag8.route || state.runeActual.dataRuneNavigation.routeRuneActual == RoutesRunes.Pag9.route)) {
-            ComparatorOperatorCommons(state = state, comparator = comparator)
-        } else if (state.selectedItems.isNotEmpty()) {
+        if (stateRune.selectedItems.isNotEmpty() && (stateController.indexActual == 7 || stateController.indexActual == 8)) {
+            ComparatorOperatorCommons(
+                stateController = stateController,
+                comparator = comparator,
+                stateRune = stateRune
+            )
+        } else if (stateRune.selectedItems.isNotEmpty()) {
             OperatorCommon(
-                state = state,
+                stateController = stateController,
+                stateRune = stateRune,
                 comparator = comparator
             )
         }
@@ -85,34 +96,35 @@ fun ContentInventory(
 
 @Composable
 fun OperatorCommon(
-    state: ControllerState,
+    stateController: ControllerState,
+    stateRune: RunesState,
     comparator: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .background(if (state.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f)),
+            .background(if (stateController.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Spacer(Modifier.weight(1f))
         AsyncImage(
-            model = state.selectedItems.first().imageUrl,
-            contentDescription = state.selectedItems.first().name,
+            model = stateRune.selectedItems.first().imageUrl,
+            contentDescription = stateRune.selectedItems.first().name,
             modifier = Modifier.size(140.dp).clip(CircleShape)
         )
         Spacer(Modifier.weight(1f))
-        if (state.selectedItems.size > 1) {
+        if (stateRune.selectedItems.size > 1) {
             comparator()
             AsyncImage(
-                model = state.comparisonOperator?.icon ?: ComparisonOperator.AND.icon,
-                contentDescription = state.comparisonOperator?.symbol,
+                model = stateRune.comparisonOperator?.icon ?: ComparisonOperator.AND.icon,
+                contentDescription = stateRune.comparisonOperator?.symbol,
                 modifier = Modifier.size(140.dp)
             )
             Spacer(Modifier.weight(1f))
             AsyncImage(
-                model = state.selectedItems.last().imageUrl,
-                contentDescription = state.selectedItems.last().name,
+                model = stateRune.selectedItems.last().imageUrl,
+                contentDescription = stateRune.selectedItems.last().name,
                 modifier = Modifier.size(140.dp).clip(CircleShape)
             )
             Spacer(Modifier.weight(1f))
@@ -122,14 +134,15 @@ fun OperatorCommon(
 
 @Composable
 fun ComparatorOperatorCommons(
-    state: ControllerState,
+    stateController: ControllerState,
+    stateRune: RunesState,
     size: Dp = 100.dp,
     comparator: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .background(if (state.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f)),
+            .background(if (stateController.isPagComplete) Color.Green.copy(0.3f) else Color.Red.copy(0.3f)),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -141,7 +154,7 @@ fun ComparatorOperatorCommons(
         )
         Spacer(Modifier.weight(1f))
         AsyncImage(
-            model = if (state.runeActual.dataRuneNavigation.routeRuneActual == RoutesRunes.Pag8.route) ComparisonOperator.GREATER_EQUAL.icon else ComparisonOperator.GREATER_EQUAL.icon,
+            model = if (stateRune.runeActual.dataRuneNavigation.routeRuneActual == RoutesRunes.Pag8.route) ComparisonOperator.GREATER_EQUAL.icon else ComparisonOperator.GREATER_EQUAL.icon,
             contentDescription = ComparisonOperator.LESS_THAN.name,
             modifier = Modifier.size(size)
         )
@@ -153,14 +166,14 @@ fun ComparatorOperatorCommons(
         )
         Spacer(Modifier.weight(1f))
         AsyncImage(
-            model = (if (RoutesRunes.Pag8.route == state.runeActual.dataRuneNavigation.routeRuneActual) ComparisonOperator.OR.icon else ComparisonOperator.AND.icon),
-            contentDescription = state.comparisonOperator?.symbol,
+            model = (if (RoutesRunes.Pag8.route == stateRune.runeActual.dataRuneNavigation.routeRuneActual) ComparisonOperator.AND.icon else ComparisonOperator.OR.icon),
+            contentDescription = stateRune.comparisonOperator?.symbol,
             modifier = Modifier.size(size)
         )
         Spacer(Modifier.weight(1f))
         AsyncImage(
-            model = (state.selectedItems.first().imageUrl),
-            contentDescription = state.selectedItems.first().name,
+            model = (stateRune.selectedItems.first().imageUrl),
+            contentDescription = stateRune.selectedItems.first().name,
             modifier = Modifier.size(size).clip(CircleShape)
         )
         Spacer(Modifier.weight(1f))
@@ -169,12 +182,12 @@ fun ComparatorOperatorCommons(
             contentDescription = ComparisonOperator.EQUAL.name,
             modifier = Modifier.size(size)
         )
-        if (state.selectedItems.size > 1){
+        if (stateRune.selectedItems.size > 1){
             Spacer(Modifier.weight(1f))
             comparator()
             AsyncImage(
-                model = (state.selectedItems.last().imageUrl),
-                contentDescription = state.selectedItems.last().name,
+                model = (stateRune.selectedItems.last().imageUrl),
+                contentDescription = stateRune.selectedItems.last().name,
                 modifier = Modifier.size(size).clip(CircleShape)
             )
         }

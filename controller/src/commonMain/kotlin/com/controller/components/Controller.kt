@@ -20,18 +20,17 @@ import com.controller.ControllerViewModel
 @Composable
 fun ControllerComponent(
     viewModel: ControllerViewModel,
-    navController: NavHostController,
-    state: ControllerState,
     swipeToTheLeft: () -> Boolean,
     swipeToTheRight: () -> Boolean,
     swipeToTheUp: () -> Unit,
     swipeToTheDown: () -> Unit,
+    nav: (String) -> Unit,
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
     val thresholdHorizontal = with(density) { 100.dp.toPx() }
     var totalDragVertical by remember { mutableStateOf(0f) }
-    val thresholdVertical = with(density) { 200.dp.toPx() }
+    val thresholdVertical = with(density) { 100.dp.toPx() }
 
     Box(
         modifier = Modifier
@@ -69,27 +68,15 @@ fun ControllerComponent(
                         when {
                             totalDragHorizontal < thresholdHorizontal -> {
                                 if (swipeToTheLeft()) {
-                                    viewModel.update {
-                                        copy(
-                                            indexActual = indexActual + 1,
-                                            runeActual = rune[indexActual + 1]
-                                        )
-                                    }
-                                    navController.popBackStack()
-                                    navController.navigate(state.runeActual.dataRuneNavigation.routeRuneNext)
+                                    viewModel.update { copy(indexActual = indexActual + 1) }
+                                    nav("left")
                                 }
                             }
 
                             totalDragHorizontal > thresholdHorizontal -> {
                                 if (swipeToTheRight()) {
-                                    viewModel.update {
-                                        copy(
-                                            indexActual = indexActual - 1,
-                                            runeActual = rune[indexActual - 1]
-                                        )
-                                    }
-                                    navController.popBackStack()
-                                    navController.navigate(state.runeActual.dataRuneNavigation.routeRunePrevious)
+                                    viewModel.update { copy(indexActual = indexActual - 1,) }
+                                    nav("right")
                                 }
                             }
                         }

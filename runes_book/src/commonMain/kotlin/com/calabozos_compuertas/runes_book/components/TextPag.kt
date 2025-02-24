@@ -1,4 +1,4 @@
-package com.controller.components
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

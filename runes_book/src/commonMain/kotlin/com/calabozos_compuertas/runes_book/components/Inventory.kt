@@ -1,4 +1,4 @@
-package com.controller.components
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -7,11 +7,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -34,30 +32,33 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.calabozos_compuertas.runes_book.screen.RuneViewModel
+import com.calabozos_compuertas.runes_book.utils.RunesState
 import com.controller.ControllerState
-import com.controller.ControllerViewModel
 import com.shared.enum.InventoryObject
 
 @Composable
 fun InventoryComponent(
-    state: ControllerState,
-    viewModel: ControllerViewModel,
+    stateRune: RunesState,
+    stateController: ControllerState,
+    viewModel: RuneViewModel,
     comparative: () -> Unit
 ) {
     val animatedOffset by animateDpAsState(
-        targetValue = if (state.isExpandedInventory) (-10).dp else 550.dp,
+        targetValue = if (stateRune.isExpandedInventory) (-10).dp else 550.dp,
         animationSpec = tween(300, easing = FastOutSlowInEasing)
     )
-    if (state.indexActual >= 1) {
+    if (stateController.indexActual >= 1) {
         ObjectInventoryComponent(
-            state = state,
+            stateController = stateController,
+            stateRune = stateRune,
             viewModel = viewModel,
             comparator = comparative
         )
     }
-    viewModel.update { copy(isSelectedRune = state.selectedItems.isNotEmpty()) }
+    viewModel.update { copy(isSelectedRune = stateRune.selectedItems.isNotEmpty()) }
     AnimatedVisibility(
-        visible = state.isExpandedInventory && state.indexActual >= 1,
+        visible = stateRune.isExpandedInventory && stateController.indexActual >= 1,
         enter = slideInVertically(
             initialOffsetY = { it },
             animationSpec = tween(durationMillis = 300)
@@ -95,11 +96,12 @@ fun InventoryComponent(
                     items(InventoryObject.entries) { item ->
                         IconButton(
                             onClick = { viewModel.toggleSelection(item) },
+                            enabled = stateController.indexActual != 1,
                             modifier = Modifier
                                 .wrapContentSize()
                                 .padding(5.dp)
                                 .background(
-                                    color = if (state.selectedItems.contains(item)) colorScheme.primary else Color.Transparent,
+                                    color = if (stateRune.selectedItems.contains(item)) colorScheme.primary else Color.Transparent,
                                     shape = RoundedCornerShape(64.dp)
                                 )
                         ) {

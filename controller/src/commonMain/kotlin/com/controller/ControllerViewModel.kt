@@ -13,15 +13,4 @@ class ControllerViewModel : ViewModel() {
     fun update(update: ControllerState.() -> ControllerState) {
         _state.value = update(_state.value)
     }
-
-    fun toggleSelection(item: InventoryObject) {
-        _state.update { current ->
-            val newSelection = when {
-                item in current.selectedItems -> current.selectedItems - item
-                current.selectedItems.size < 2 -> current.selectedItems + item
-                else -> current.selectedItems.drop(1) + item
-            }
-            current.copy(selectedItems = newSelection)
-        }
-    }
 }

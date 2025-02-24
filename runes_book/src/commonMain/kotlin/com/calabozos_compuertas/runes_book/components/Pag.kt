@@ -1,4 +1,4 @@
-package com.controller.components
+package com.calabozos_compuertas.runes_book.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

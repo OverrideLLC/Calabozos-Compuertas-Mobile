@@ -117,7 +117,9 @@ private fun Bottom(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
         IconButton(
-            onClick = { viewModel.update { copy(music = !music) } },
+            onClick = {
+                viewModel.update { copy(music = !music) }
+            },
             content = {
                 IconCrossfade(
                     targetState = state.music,

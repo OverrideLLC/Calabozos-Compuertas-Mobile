@@ -5,19 +5,14 @@ plugins {
     alias(libs.plugins.composeCompiler)
 }
 
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.resources"
-    generateResClass = auto
-}
-
 kotlin {
     androidLibrary {
-        namespace = "com.resources"
+        namespace = "com.logic_book"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
-        withHostTestBuilder {}
+        withHostTestBuilder {
+        }
 
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
@@ -26,13 +21,15 @@ kotlin {
         }
     }
 
+    val xcfName = "logic_bookKit"
+
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "resourcesKit"
+            baseName = xcfName
             isStatic = true
         }
     }
@@ -40,28 +37,33 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                //MODULES
+                api(projects.controller)
+                implementation(projects.shared)
+                implementation(projects.resources)
+
                 implementation(libs.kotlin.stdlib)
-                /* COMPOSE */
-                implementation(compose.components.uiToolingPreview)
+                implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
-                implementation(compose.runtime)
                 implementation(compose.ui)
-                implementation(libs.androidx.lifecycle.runtime.compose)
-                implementation(libs.androidx.lifecycle.viewmodel)
                 api(compose.components.resources)
-                implementation(libs.kottie)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtime.compose)
+                implementation(libs.navegation.compose)
+                implementation(project.dependencies.platform(libs.koin.bom))
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
+                implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+                implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
             }
         }
 
         commonTest {
             dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-
-        androidMain {
-            dependencies {
+                implementation(libs.kotlin.test)
             }
         }
 
@@ -70,11 +72,6 @@ kotlin {
                 implementation(libs.androidx.runner)
                 implementation(libs.androidx.core)
                 implementation(libs.androidx.junit)
-            }
-        }
-
-        iosMain {
-            dependencies {
             }
         }
     }

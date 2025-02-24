@@ -1,6 +1,6 @@
 package org.book.di
 
-import com.calabozos_compuertas.runes_book.RuneViewModel
+import com.calabozos_compuertas.runes_book.screen.RuneViewModel
 import com.controller.ControllerViewModel
 import org.book.ui.screen.start.StartViewModel
 import org.koin.core.module.dsl.viewModelOf

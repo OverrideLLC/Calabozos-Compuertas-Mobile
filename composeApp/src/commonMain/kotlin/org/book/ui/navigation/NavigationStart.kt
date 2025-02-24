@@ -14,7 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.LocalPlatformContext
-import com.calabozos_compuertas.runes_book.RuneScreen
+import com.calabozos_compuertas.runes_book.screen.RuneScreen
 import com.shared.routes.RoutesStart
 import org.book.ui.screen.start.StartScreen
 
