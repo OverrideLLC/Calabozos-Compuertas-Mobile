@@ -19,22 +19,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import book.composeapp.generated.resources.Res
-import book.composeapp.generated.resources.graph_1_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.portada_logic
-import book.composeapp.generated.resources.portada_runes
-import book.composeapp.generated.resources.volume_off_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
-import book.composeapp.generated.resources.volume_up_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.resources.Res
+import com.resources.graph_1_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.resources.portada_logic
+import com.resources.portada_runes
+import com.resources.volume_off_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.resources.volume_up_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24
+import com.shared.routes.RoutesStart
 import org.book.ui.components.BackgroundAnimated
 import org.book.ui.components.CardBook
 import org.book.ui.components.IconCrossfade
-import org.book.utils.routes.RoutesStart
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -48,7 +47,7 @@ fun StartScreen(
 
 @Composable
 private fun Screen(viewModel: StartViewModel, navController: NavController) {
-    val state by remember { viewModel.state }.collectAsState()
+    val state by viewModel.state.collectAsState()
     LaunchedEffect(Unit) { viewModel.update { copy(visible = true) } }
 
     Scaffold(
@@ -118,7 +117,9 @@ private fun Bottom(
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
         IconButton(
-            onClick = { viewModel.update { copy(music = !music) } },
+            onClick = {
+                viewModel.update { copy(music = !music) }
+            },
             content = {
                 IconCrossfade(
                     targetState = state.music,

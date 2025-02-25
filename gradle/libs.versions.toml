@@ -1,23 +1,37 @@
 [versions]
-agp = "8.5.2"
+agp = "8.8.1"
 android-compileSdk = "35"
 android-minSdk = "29"
 android-targetSdk = "35"
 androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
+coilNetworkOkhttp = "3.1.0"
+coilCompose = "3.1.0"
 compose-multiplatform = "1.7.3"
 coreSplashscreen = "1.0.1"
+korgeCore = "5.1.0"
 kotlin = "2.1.0"
+kottie = "2.0.1"
 navegation-compose = "2.8.0-alpha10"
 koin = "4.0.0"
 koinCompose = "4.0.0"
 foundationAndroid = "1.7.6"
+kotlinStdlib = "2.1.0"
+kotlinTest = "2.1.0"
+runner = "1.6.2"
+core = "1.6.1"
+junit = "1.2.1"
+
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
+korge-core = { module = "com.soywiz.korge:korge-core", version.ref = "korgeCore" }
+kottie = { module = "io.github.ismai117:kottie", version.ref = "kottie" }
 navegation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navegation-compose" }
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android" }
@@ -25,6 +39,11 @@ koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koinCompose"}
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -32,3 +51,4 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+androidKotlinMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
