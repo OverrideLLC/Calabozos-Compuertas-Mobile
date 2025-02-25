@@ -73,7 +73,7 @@ fun TextPag(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.Serif,
-                color = color,
+                color = Color.Black,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.padding(10.dp)
             )

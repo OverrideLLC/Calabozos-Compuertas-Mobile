@@ -1,6 +1,7 @@
 package com.resources
 
 import KottieAnimation
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,6 +42,6 @@ fun LottieAnimationCommon(
     KottieAnimation(
         composition = composition,
         progress = { animationState.progress },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxSize()
     )
 }

@@ -5,11 +5,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.PlatformContext
-import coil3.compose.LocalPlatformContext
 import com.calabozos_compuertas.runes_book.screen.RuneScreen
+import com.feature.dashboard.screen.DashboardScreen
+import com.feature.start.screen.StartScreen
 import com.logic_book.ui.LogicGatesScreen
 import com.shared.routes.RoutesStart
-import org.book.ui.screen.start.StartScreen
 
 @Composable
 fun NavigationStart(context: PlatformContext) {
@@ -21,5 +21,6 @@ fun NavigationStart(context: PlatformContext) {
         composable(RoutesStart.Start.route) { StartScreen(navController) }
         composable(RoutesStart.RunesBook.route) { RuneScreen(context) }
         composable(RoutesStart.LogicBook.route) { LogicGatesScreen(context) }
+        composable(RoutesStart.Dashboard.route) { DashboardScreen(navController) }
     }
 }
