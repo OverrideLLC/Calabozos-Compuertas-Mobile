@@ -8,11 +8,12 @@ import coil3.compose.AsyncImage
 import com.logic_book.utils.enums.ImagesBook
 
 @Composable
-fun Pag(imageBook: ImagesBook) {
+fun Pag(imageBook: ImagesBook, illuminate: Boolean) {
     AsyncImage(
         model = imageBook.imageUrl,
         contentDescription = imageBook.name,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxSize()
+        contentScale = if (imageBook.routeActual == ImagesBook.PAG7.routeActual) ContentScale.FillHeight else ContentScale.FillWidth,
+        modifier = Modifier.fillMaxSize(),
+        alpha = if (illuminate) 1f else 0.3f
     )
 }
