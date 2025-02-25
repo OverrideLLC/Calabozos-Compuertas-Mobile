@@ -1,6 +1,7 @@
 package com.controller.components
 
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,14 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.controller.ControllerViewModel
 
 @Composable
 fun ControllerComponent(
-    swipeToTheLeft: () -> Unit,
-    swipeToTheRight: () -> Unit,
-    swipeToTheUp: () -> Unit,
-    swipeToTheDown: () -> Unit,
+    swipeToTheLeft: () -> Unit = {},
+    swipeToTheRight: () -> Unit = {},
+    swipeToTheUp: () -> Unit = {},
+    swipeToTheDown: () -> Unit = {},
+    oneTap: () -> Unit = {},
+    twoTap: () -> Unit = {},
+    moreTap: () -> Unit = {},
+    onFinish: () -> Unit = {},
 ) {
     val density = LocalDensity.current
     var totalDragHorizontal by remember { mutableStateOf(0f) }
@@ -71,6 +75,35 @@ fun ControllerComponent(
                             }
                         }
                         totalDragHorizontal = 0f
+                    }
+                )
+            }
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val event = awaitPointerEvent()
+                        val pointers = event.changes
+                        when (pointers.size) {
+                            1 -> {
+                                oneTap()
+                            }
+
+                            2 -> {
+                                twoTap()
+                            }
+
+                            else -> {
+                                moreTap()
+                            }
+                        }
+                    }
+                }
+            }
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        tryAwaitRelease()
+                        onFinish()
                     }
                 )
             }
