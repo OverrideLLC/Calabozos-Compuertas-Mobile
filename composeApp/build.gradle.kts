@@ -39,6 +39,8 @@ kotlin {
             implementation(projects.resources)
             implementation(projects.shared)
             implementation(projects.logicBook)
+            implementation(projects.feature.start)
+            implementation(projects.feature.dashboard)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -78,7 +80,7 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     compileOptions {
