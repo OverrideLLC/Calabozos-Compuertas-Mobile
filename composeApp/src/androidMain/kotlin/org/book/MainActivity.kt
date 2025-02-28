@@ -11,13 +11,15 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import coil3.compose.LocalPlatformContext
+import org.book.platform.AudioPlayer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupSplashScreen()
-        setupSystemBars()
-        setContent { App() }
+//        setupSystemBars()
+        setContent { App(LocalPlatformContext.current) }
     }
 
     private fun setupSystemBars() {

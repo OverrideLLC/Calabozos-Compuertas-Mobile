@@ -31,13 +31,22 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
+            implementation("com.google.android.exoplayer:exoplayer:2.18.1")
         }
         commonMain.dependencies {
+            //MODULES
+            implementation(projects.runesBook)
+            implementation(projects.resources)
+            implementation(projects.shared)
+            implementation(projects.logicBook)
+            implementation(projects.feature.start)
+            implementation(projects.feature.dashboard)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
-            implementation(compose.components.resources)
+            api(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
@@ -46,6 +55,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.okhttp)
         }
         iosMain.dependencies {}
     }
@@ -69,7 +80,7 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     compileOptions {
