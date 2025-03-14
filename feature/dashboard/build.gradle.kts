@@ -21,7 +21,7 @@ kotlin {
         }
     }
 
-    val xcfName = "feature:dashboardKit"
+    val xcfName = "featureDashboardKit"
 
     listOf(
         iosX64(),

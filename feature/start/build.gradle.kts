@@ -21,7 +21,7 @@ kotlin {
         }
     }
 
-    val xcfName = "feature:startKit"
+    val xcfName = "featureStartKit"
 
     listOf(
         iosX64(),

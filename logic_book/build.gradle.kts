@@ -35,6 +35,16 @@ kotlin {
     }
 
     sourceSets {
+        androidMain {
+            dependencies {
+                implementation(libs.ktor.client.android)
+            }
+        }
+        iosMain{
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
+        }
         commonMain {
             dependencies {
                 //MODULES
@@ -56,8 +66,8 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
                 implementation(libs.koin.compose.viewmodel)
-                implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-                implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+                implementation(libs.coil.compose)
+                implementation(libs.coil.network)
             }
         }
 
