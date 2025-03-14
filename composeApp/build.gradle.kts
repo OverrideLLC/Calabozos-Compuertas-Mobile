@@ -32,6 +32,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
             implementation("com.google.android.exoplayer:exoplayer:2.18.1")
+            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             //MODULES
@@ -56,9 +57,11 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
+            implementation(libs.coil.network)
         }
-        iosMain.dependencies {}
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
     }
 }
 
