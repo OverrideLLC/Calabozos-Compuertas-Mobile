@@ -44,10 +44,7 @@ fun Screen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = BackgroundAnimated(
-                    colorPrimary = Color(0xFFE7152D),
-                    colorSecondary = Color(0xFFE78515)
-                )
+                color = Color.White,
             ),
         contentAlignment = Alignment.TopCenter,
         content = {
@@ -62,7 +59,7 @@ fun Screen(navController: NavController) {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 content = {
-                    Spacer(modifier = Modifier.weight(.4f))
+                    Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = buildAnnotatedString {
                             withStyle(
@@ -86,7 +83,7 @@ fun Screen(navController: NavController) {
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                         style = MaterialTheme.typography.titleLarge
                     )
-                    Spacer(modifier = Modifier.weight(1f))
+
                     Button(
                         onClick = {
                             navController.navigate(RoutesStart.Dashboard.route)
@@ -102,8 +99,8 @@ fun Screen(navController: NavController) {
                         shape = MaterialTheme.shapes.medium,
                         modifier = Modifier.fillMaxWidth(0.8f).height(50.dp),
                         colors = buttonColors(
-                            containerColor = colorScheme.background,
-                            contentColor = colorScheme.primary
+                            containerColor = Color(0xFFE7152D),
+                            contentColor = colorScheme.background
                         )
                     )
                     Spacer(modifier = Modifier.padding(5.dp))
@@ -122,15 +119,14 @@ fun Screen(navController: NavController) {
                         modifier = Modifier.fillMaxWidth(0.8f).height(50.dp),
                         shape = MaterialTheme.shapes.medium,
                         border = ButtonDefaults.outlinedButtonBorder.copy(
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    colorScheme.background,
-                                    colorScheme.background
-                                )
-                            )
+                            brush = BackgroundAnimated(
+                                Color(0xFFE78515),
+                                Color(0xFFE7152D)
+                            ),
+                            width = 3.dp
                         ),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = Color.White,
+                            contentColor = Color(0xFFE7152D),
                             containerColor = Color.Transparent,
                         )
                     )
