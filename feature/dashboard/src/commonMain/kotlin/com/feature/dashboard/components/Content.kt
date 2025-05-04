@@ -1,6 +1,5 @@
 package com.feature.dashboard.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -8,14 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.feature.dashboard.utils.BooksEnums
+import com.feature.dashboard.utils.enums.BooksEnums
 
 @Composable
 internal fun Content(navController: NavController, paddingValues: PaddingValues) {
@@ -23,8 +20,7 @@ internal fun Content(navController: NavController, paddingValues: PaddingValues)
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
-            .padding(horizontal = 10.dp)
-            .padding(top = 10.dp),
+            .padding(horizontal = 10.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         content = {

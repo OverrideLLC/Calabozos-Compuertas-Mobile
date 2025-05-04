@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
@@ -31,15 +32,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.resources.HOMEBAN
 import com.resources.Res
-import com.resources.compose_multiplatform
-import com.resources.pagina1_image_runes
-import com.resources.portada_image_runes
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun TopBar() {
+internal fun TopBar(
+    onMenuClick: () -> Unit,
+) {
     // Define the shape once to reuse it
     val bottomRoundedShape = RoundedCornerShape(
         bottomStart = 20.dp,
@@ -49,33 +50,34 @@ internal fun TopBar() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(250.dp)
             .background( // Apply background color and shape to the Box
-                color = Color(0xFFE78515),
+                color = Color(0x00ffffff),
                 shape = bottomRoundedShape
             ),
         contentAlignment = Alignment.BottomStart, // Align content (Row) to the bottom start
     ) {
         Image(
-            painter = painterResource(Res.drawable.pagina1_image_runes),
+            painter = painterResource(Res.drawable.HOMEBAN),
             contentDescription = "portada",
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(bottomRoundedShape), // Clip the Image content to the shape
-            contentScale = ContentScale.Crop // Crop the image content within the bounds
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
-        // This Row will be drawn on top of the Image, aligned to the BottomStart of the Box
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        IconButton(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomStart) // Explicitly align Row to bottom start if needed
-                .padding(bottom = 8.dp, start = 8.dp, end = 8.dp) // Add some padding for the icons
-        ) {
-            Profile(Res.drawable.portada_image_runes)
-            Options()
-        }
+                .size(50.dp)
+                .padding(10.dp)
+                .align(Alignment.TopStart),
+            onClick = { onMenuClick() },
+            content = {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "menu",
+                    tint = Color.White,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        )
     }
 }
 
