@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
@@ -78,12 +79,11 @@ fun Screen(navController: NavController) {
                             }
                         },
                         color = colorScheme.tertiary,
-                        fontSize = 60.sp,
+                        fontSize = 50.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
-
                     Button(
                         onClick = {
                             navController.navigate(RoutesStart.Dashboard.route)
@@ -99,8 +99,8 @@ fun Screen(navController: NavController) {
                         shape = MaterialTheme.shapes.medium,
                         modifier = Modifier.fillMaxWidth(0.8f).height(50.dp),
                         colors = buttonColors(
-                            containerColor = Color(0xFFE7152D),
-                            contentColor = colorScheme.background
+                            containerColor = colorScheme.secondary,
+                            contentColor = colorScheme.onSecondary
                         )
                     )
                     Spacer(modifier = Modifier.padding(5.dp))
@@ -118,15 +118,8 @@ fun Screen(navController: NavController) {
                         },
                         modifier = Modifier.fillMaxWidth(0.8f).height(50.dp),
                         shape = MaterialTheme.shapes.medium,
-                        border = ButtonDefaults.outlinedButtonBorder.copy(
-                            brush = BackgroundAnimated(
-                                Color(0xFFE78515),
-                                Color(0xFFE7152D)
-                            ),
-                            width = 3.dp
-                        ),
                         colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = Color(0xFFE7152D),
+                            contentColor = colorScheme.secondary,
                             containerColor = Color.Transparent,
                         )
                     )

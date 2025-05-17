@@ -102,38 +102,57 @@ val InverseSurfaceDark = OnBackgroundDark    // Superficie inversa clara (existe
 val InverseOnSurfaceDark = BackgroundDark    // Texto oscuro sobre superficie inversa (existente)
 val InversePrimaryDark = NewPrimaryRed       // Rojo original como primario inverso
 
+val RojoRunaClaro = Color(0xFFB83932)      // Títulos / énfasis
+val NaranjaHorno = Color(0xFFE87C3C)       // Botones / íconos activos
+val MarfilPapiro = Color(0xFFFAF6EF)      // Fondo general
+val GrisCeniza = Color(0xFF4A4A4A)        // Texto / íconos secundarios
+val OroPolvoso = Color(0xFFD9A441)        // Acentos / decoraciones mágicas
+val CobreOpaco = Color(0xFFC9B28F)         // Bordes / tarjetas / separadores
+
 // --- Esquemas de Color Material ---
 
 val LightColorScheme = lightColorScheme(
-    primary = NewPrimaryRed,
-    onPrimary = OnNewPrimaryRed,
-    primaryContainer = PrimaryContainerLight,
-    onPrimaryContainer = OnPrimaryContainerLight,
-    secondary = NewSecondaryOrange,
-    onSecondary = OnNewSecondaryOrange,
-    secondaryContainer = SecondaryContainerLight,
-    onSecondaryContainer = OnSecondaryContainerLight,
-    tertiary = CustomTertiary, // Mantenido
-    onTertiary = OnCustomTertiary, // Mantenido
-    tertiaryContainer = TertiaryContainerLight, // Mantenido
-    onTertiaryContainer = OnTertiaryContainerLight, // Mantenido
-    error = CustomError, // Mantenido
-    onError = OnCustomError, // Mantenido
-    errorContainer = ErrorContainerLight, // Mantenido
-    onErrorContainer = OnErrorContainerLight, // Mantenido
-    background = CustomBackground, // Mantenido
-    onBackground = OnCustomBackground, // Mantenido
-    surface = SurfaceLight, // Mantenido
-    onSurface = OnSurfaceLight, // Mantenido
-    surfaceVariant = SurfaceVariantLight, // Mantenido
-    onSurfaceVariant = OnSurfaceVariantLight, // Mantenido
-    outline = OutlineLight, // Mantenido/Ajustado
-    outlineVariant = OutlineVariantLight, // Ajustado
-    scrim = Color(0x61000000), // Scrim oscuro semi-transparente
-    inverseSurface = InverseSurfaceLight, // Mantenido
-    inverseOnSurface = InverseOnSurfaceLight, // Mantenido
-    inversePrimary = InversePrimaryLight,
-    surfaceTint = NewPrimaryRed // Tinte de superficie usualmente es el primario
+    primary = RojoRunaClaro,                 // Para títulos y énfasis principal
+    onPrimary = MarfilPapiro,                // Texto/iconos sobre el color primario (contraste alto)
+    primaryContainer = CobreOpaco,           // Contenedores para elementos primarios, con temática "artefacto"
+    onPrimaryContainer = GrisCeniza,         // Texto/iconos sobre primaryContainer (legible sobre CobreOpaco)
+
+    secondary = NaranjaHorno,                // Para botones flotantes, selecciones, íconos activos
+    onSecondary = MarfilPapiro,              // Texto/iconos sobre el color secundario
+    secondaryContainer = CobreOpaco,         // Contenedores para elementos secundarios, temática "artefacto"
+    onSecondaryContainer = GrisCeniza,       // Texto/iconos sobre secondaryContainer
+
+    tertiary = OroPolvoso,                   // Para acentos y decoraciones mágicas
+    onTertiary = GrisCeniza,                 // Texto/iconos sobre el color terciario (buen contraste con OroPolvoso)
+    tertiaryContainer = CobreOpaco,          // Contenedores para elementos terciarios, temática "artefacto"
+    onTertiaryContainer = GrisCeniza,        // Texto/iconos sobre tertiaryContainer
+
+    error = RojoRunaClaro,                   // Color para errores (usando el rojo disponible; puede ser algo apagado para errores críticos)
+    onError = MarfilPapiro,                  // Texto/iconos sobre el color de error
+    errorContainer = CobreOpaco,             // Contenedor para mensajes de error, temática "tarjeta de artefacto"
+    onErrorContainer = RojoRunaClaro,        // Texto/iconos (el propio color de error) sobre errorContainer para destacar
+
+    background = MarfilPapiro,               // Fondo general de la aplicación (pergamino antiguo)
+    onBackground = GrisCeniza,               // Texto principal sobre el fondo
+
+    surface = MarfilPapiro,                  // Superficies de componentes como Cards, Sheets, Menus (puede ser igual que background)
+    onSurface = GrisCeniza,                  // Texto sobre estas superficies
+
+    surfaceVariant = CobreOpaco,             // Para variantes de superficie, como "tarjetas" o divisores
+    onSurfaceVariant = GrisCeniza,           // Texto sobre surfaceVariant
+
+    outline = CobreOpaco,                    // Bordes y separadores
+    outlineVariant = Color(0xFFDCD0B3),     // Un borde más sutil, derivado de CobreOpaco y MarfilPapiro (opcional, puedes ajustarlo o usar outline)
+
+    scrim = Color(0x99000000),               // Oscurecimiento para elementos como Drawers modales (negro con transparencia)
+
+    inversePrimary = MarfilPapiro,           // Usado para elementos primarios en superficies inversas (oscuras)
+    inverseSurface = GrisCeniza,             // Una superficie que contrasta con la superficie normal (ej. para Snackbars)
+    inverseOnSurface = MarfilPapiro,         // Contenido sobre una superficie inversa
+
+    surfaceTint = RojoRunaClaro              // Tinte aplicado a las superficies elevadas, usualmente el color primario
+    // surfaceBright, surfaceDim, surfaceContainerLowest, etc., se derivan o pueden especificarse
+    // pero los anteriores son los más cruciales para empezar.
 )
 
 val DarkColorScheme = darkColorScheme(
