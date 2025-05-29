@@ -20,14 +20,18 @@ Calabozos y Compuertas Mobile es una aplicación diseñada para llevar la emoci�
 
 ## 🛠️ Tecnologías Utilizadas
 
-* **Kotlin Multiplatform Mobile (KMM):** Para compartir código entre Android e iOS.
-* **Jetpack Compose:** Para la UI de Android.
-* **SwiftUI:** Para la UI de iOS.
-* **Kotlin Coroutines:** Para la programación asíncrona.
-* **Koin:** Para la inyección de dependencias.
-* **Voyager:** (Posiblemente, basado en la estructura de navegación) Para la navegación en KMM.
-* **Lottie:** Para animaciones.
-* **Gradle (Kotlin DSL):** Para la gestión de dependencias y construcción del proyecto.
+* **Kotlin Multiplatform Mobile (KMM):** Para compartir código Kotlin entre Android e iOS.
+* **Jetpack Compose (Material 3):** Para la interfaz de usuario de Android, utilizando los componentes más recientes de Material Design.
+* **SwiftUI:** Para la interfaz de usuario de iOS, aprovechando el framework declarativo de Apple.
+* **Kotlin Coroutines:** Para la gestión de operaciones asíncronas y concurrencia.
+* **Koin:** Para la inyección de dependencias, facilitando un código más modular y testeable.
+* **Navigation Compose:** Biblioteca de navegación para Kotlin Multiplatform, simplificando la gestión de pantallas y flujos.
+* **Lottie Compose:** Para integrar animaciones vectoriales de Lottie de forma nativa en Jetpack Compose.
+* **Kotlinx Serialization:** Para la serialización y deserialización de datos (ej. JSON).
+* **Kotlinx DateTime:** Para el manejo de fechas y horas de forma multiplataforma.
+* **Coil:** Para la carga de imágenes en Android, optimizada para Kotlin y Jetpack Compose.
+* **Android Splash Screen API:** Para una pantalla de inicio nativa y personalizable en Android.
+* **Gradle (Kotlin DSL):** Como sistema de construcción y gestión de dependencias del proyecto.
 
 ## 📂 Estructura del Proyecto
 
