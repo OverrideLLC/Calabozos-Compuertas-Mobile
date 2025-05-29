@@ -46,7 +46,7 @@ Calabozos y Compuertas Mobile es una aplicación diseñada para llevar la emoci�
 
 1.  Clonar el repositorio:
     ```bash
-    git clone https://URL_DEL_REPOSITORIO_AQUI.git
+    git clone https://github.com/OverrideLLC/Calabozos-Compuertas-Mobile
     cd Calabozos-Compuertas-Mobile-master
     ```
 2.  Abrir el proyecto en Android Studio.
