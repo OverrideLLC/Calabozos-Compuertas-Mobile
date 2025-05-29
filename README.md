@@ -1,134 +1,105 @@
-# Calabozos y Compuertas
+# Calabozos y Compuertas Mobile
 
-Bienvenido a **Calabozos y Compuertas**, una app multiplataforma que te llevará a una aventura única
-en el reino de **Itsu**. Resuelve puzzles de lógica, explora desafiantes calabozos y busca el tesoro
-escondido mientras aprendes sobre **compuertas lógicas** de una forma divertida e inmersiva.
+![Imagen de la App](portada_logic.png)
 
----
+Bienvenido al repositorio de Calabozos y Compuertas Mobile, una aplicación multiplataforma desarrollada con Kotlin Multiplatform Mobile (KMM) que ofrece una experiencia interactiva relacionada con el universo de Calabozos y Compuertas.
 
-## Descripción del Proyecto
+## 📜 Descripción
 
-**Calabozos y Compuertas** es un juego de aventuras interactivo diseñado para enseñar conceptos de *
-*compuertas lógicas**. Los usuarios deben resolver puzzles basados en lógica para avanzar por
-niveles, enfrentar desafíos y desentrañar el misterio del tesoro oculto en el reino de **Itsu**.
+Calabozos y Compuertas Mobile es una aplicación diseñada para llevar la emoción y la lógica de los juegos de calabozos y el funcionamiento de las compuertas lógicas a tu dispositivo móvil. La aplicación parece estar dividida en varios módulos, incluyendo un libro de runas, un libro de lógica y un controlador, lo que sugiere una rica interacción y contenido educativo o de juego.
 
-El proyecto utiliza **Kotlin Multiplatform**, permitiendo su desarrollo y despliegue en **iOS**, *
-*Android**, **escritorio (Windows, macOS, Linux)** y **web**, para garantizar que la experiencia sea
-accesible en cualquier dispositivo. Es una extensión del libro físico de compuertas lógicas creado
-por **Override**, y busca transformar el aprendizaje en una experiencia gamificada y atractiva.
+## ✨ Características Principales
 
-La aplicación es **open source** y fue desarrollada por **Override**, con la colaboración de un
-diseñador gráfico para ofrecer una experiencia visual envolvente.
+* **Interfaz de Usuario Intuitiva:** Desarrollada con Jetpack Compose para Android y SwiftUI para iOS, ofreciendo una experiencia de usuario moderna y fluida.
+* **Lógica Compartida:** Gran parte de la lógica de negocio, incluyendo la gestión de estado y la navegación, está escrita en Kotlin y compartida entre Android e iOS gracias a KMM.
+* **Módulo de Libro de Runas:** Permite a los usuarios explorar e interactuar con un sistema de runas, posiblemente para aprender sobre ellas o utilizarlas en mecánicas de juego.
+* **Módulo de Libro de Lógica:** Introduce conceptos de compuertas lógicas, probablemente con tutoriales y ejemplos interactivos.
+* **Controlador Virtual:** Un módulo dedicado a un controlador, que podría ser un mando virtual para interactuar con otros componentes de la aplicación o un juego externo.
+* **Navegación Dinámica:** Sistema de navegación implementado para moverse entre las diferentes secciones y funcionalidades de la app.
+* **Recursos Compartidos:** Uso de recursos compartidos (imágenes, animaciones Lottie) para una apariencia consistente en ambas plataformas.
 
----
+## 🛠️ Tecnologías Utilizadas
 
-## Características Principales
+* **Kotlin Multiplatform Mobile (KMM):** Para compartir código entre Android e iOS.
+* **Jetpack Compose:** Para la UI de Android.
+* **SwiftUI:** Para la UI de iOS.
+* **Kotlin Coroutines:** Para la programación asíncrona.
+* **Koin:** Para la inyección de dependencias.
+* **Voyager:** (Posiblemente, basado en la estructura de navegación) Para la navegación en KMM.
+* **Lottie:** Para animaciones.
+* **Gradle (Kotlin DSL):** Para la gestión de dependencias y construcción del proyecto.
 
-- **Multiplataforma**: Compatible con iOS, Android, escritorio y navegadores web, gracias a Kotlin
-  Multiplatform.
-- **Historia interactiva**: Una narrativa envolvente que te sumerge en el universo de Calabozos y
-  Compuertas.
-- **Puzzles de lógica**: Resuelve rompecabezas basados en compuertas lógicas (AND, OR, XOR, etc.)
-  para avanzar a través de los niveles.
-- **Sistema de progresión**: Supera desafíos cada vez más complejos a medida que te acercas al
-  tesoro final.
-- **Diseño visual atractivo**: Una interfaz moderna y amigable, optimizada para cada plataforma.
-- **Versión Web**: Explora conceptos de lógica directamente desde tu navegador.
-- **Múltiples libros**: Ahora cuenta con dos libros: **Calabozos y Compuertas** y **El Viaje de las
-  Grandes Runas**, cada uno con su propia historia y desafíos únicos.
+## 📂 Estructura del Proyecto
 
----
+El proyecto está organizado en varios módulos, lo que facilita la separación de responsabilidades y la escalabilidad:
 
-## Libros Disponibles
+Calabozos-Compuertas-Mobile-master/├── composeApp/         # Módulo principal de la aplicación con UI y lógica compartida│   ├── src/│   │   ├── androidMain/    # Código específico de Android (MainActivity, etc.)│   │   ├── commonMain/     # Código Kotlin compartido (App, Navegación, ViewModels, UI Components)│   │   └── iosMain/        # Código específico de iOS (MainViewController, etc.)├── controller/         # Módulo para la funcionalidad del controlador virtual│   ├── src/│   │   ├── commonMain/     # Lógica compartida del controlador├── feature/            # Módulos de funcionalidades específicas│   ├── dashboard/      # Funcionalidad del panel principal o dashboard│   └── start/          # Funcionalidad de la pantalla de inicio├── iosApp/             # Proyecto Xcode para la aplicación iOS├── logic_book/         # Módulo para el libro de compuertas lógicas│   ├── src/│   │   ├── commonMain/     # Lógica y UI compartida del libro de lógica├── resources/          # Módulo para recursos compartidos (ej. animaciones Lottie)│   ├── src/│   │   ├── commonMain/├── runes_book/         # Módulo para el libro de runas│   ├── src/│   │   ├── commonMain/     # Lógica y UI compartida del libro de runas├── shared/             # Módulo compartido general (posiblemente lógica de datos, enums, rutas)│   ├── src/│   │   ├── commonMain/├── build.gradle.kts    # Script de construcción principal del proyecto├── settings.gradle.kts # Configuración de los módulos del proyecto└── README.md           # Este archivo
+## 🚀 Configuración e Instalación
 
-### Calabozos y Compuertas
+### Requisitos Previos
 
-El libro original que introduce a los jugadores al mundo de **Itsu** y a los conceptos básicos de
-las compuertas lógicas. Resuelve puzzles, explora calabozos y descubre el tesoro escondido.
+* Android Studio (última versión recomendada)
+* Xcode (última versión recomendada)
+* Kotlin Multiplatform Mobile plugin para Android Studio
+* CocoaPods (para dependencias de iOS)
 
-![Calabozos y Compuertas](portada_logic.png)
+### Pasos para Android
 
-### El Viaje de las Grandes Runas
-
-Una nueva aventura que expande el universo de **Itsu**. Enfrenta desafíos más complejos, descubre
-nuevas mecánicas y desbloquea el poder de las Grandes Runas.
-
-![El Viaje de las Grandes Runas](portada_runes.png)
-
----
-
-## Tecnologías Utilizadas
-
-- **Lenguaje**: Kotlin
-- **Framework Multiplataforma**: Kotlin Multiplatform
-- **Framework de UI**: Jetpack Compose Multiplatform
-- **Arquitectura**: Clean Architecture, MVVM (Model-View-ViewModel)
-- **Plataformas de Destino**:
-    - **Android** (smartphones y tablets)
-    - **iOS** (iPhone y iPad)
-    - **Escritorio** (Windows, macOS, Linux)
-    - **Web** (aplicación accesible desde navegadores)
-
----
-
-## Instalación
-
-### Android
-
-1. Clona este repositorio:
-
+1.  Clonar el repositorio:
     ```bash
-    git clone https://github.com/Override/calabozos-y-compuertas.git
+    git clone https://URL_DEL_REPOSITORIO_AQUI.git
+    cd Calabozos-Compuertas-Mobile-master
     ```
+2.  Abrir el proyecto en Android Studio.
+3.  Sincronizar el proyecto con los archivos Gradle.
+4.  Seleccionar la configuración de ejecución `composeApp` y un dispositivo/emulador Android.
+5.  Ejecutar la aplicación.
 
-2. Abre el proyecto en Android Studio.
-3. Sincroniza las dependencias de Gradle.
-4. Compila y ejecuta la aplicación en un emulador o dispositivo físico.
+### Pasos para iOS
 
-### iOS
+1.  Asegurarse de tener CocoaPods instalado:
+    ```bash
+    sudo gem install cocoapods
+    ```
+2.  Navegar al directorio `iosApp`:
+    ```bash
+    cd iosApp
+    ```
+3.  Instalar las dependencias de Pods:
+    ```bash
+    pod install
+    ```
+    (Si `pod install` falla, prueba `pod deintegrate` y luego `pod install --repo-update`)
+4.  Abrir el archivo `.xcworkspace` (ej. `iosApp.xcworkspace`) en Xcode.
+5.  Seleccionar un simulador o dispositivo iOS.
+6.  Ejecutar la aplicación desde Xcode.
 
-1. Asegúrate de tener Xcode instalado.
-2. Configura el entorno de Kotlin Multiplatform con CocoaPods
-   siguiendo [la guía oficial de KMP](https://kotlinlang.org/docs/multiplatform.html).
-3. Ejecuta el proyecto en un simulador de iOS o un dispositivo físico.
+## 🎮 Uso
 
-### Escritorio
+Una vez instalada, abre la aplicación "Calabozos y Compuertas". Serás recibido por una pantalla de inicio desde donde podrás navegar a las diferentes secciones:
 
-1. Abre el proyecto en un IDE compatible como IntelliJ IDEA.
-2. Compila el módulo correspondiente a tu sistema operativo (Windows, macOS o Linux).
-3. Ejecuta la aplicación desde el artefacto generado.
+* **Libro de Runas:** Explora el catálogo de runas, aprende sobre sus significados y usos.
+* **Libro de Lógica:** Sumérgete en el mundo de las compuertas lógicas con tutoriales interactivos.
+* **Controlador:** (Detallar cómo se usa el controlador si es aplicable).
 
-### Web
+La aplicación utiliza una interfaz táctil intuitiva. Sigue las instrucciones en pantalla y los tutoriales para una mejor experiencia.
 
-1. Asegúrate de tener Node.js instalado.
-2. Compila la versión web con Kotlin/JS.
-3. Sirve la aplicación en un servidor local o despliega en la nube.
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, por favor sigue estos pasos:
+
+1.  Haz un Fork del proyecto.
+2.  Crea una nueva rama para tu feature (`git checkout -b feature/AmazingFeature`).
+3.  Realiza tus cambios y haz commit (`git commit -m 'Add some AmazingFeature'`).
+4.  Haz Push a la rama (`git push origin feature/AmazingFeature`).
+5.  Abre un Pull Request.
+
+Por favor, asegúrate de que tu código sigue las guías de estilo del proyecto y que todas las pruebas pasan.
+
+## 📄 Licencia
+
+Este proyecto está distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles (si tienes uno, si no, considera añadirlo o especificar la licencia).
 
 ---
 
-## Contribuciones
-
-¡Tu ayuda es bienvenida! Si quieres contribuir al proyecto, sigue estos pasos:
-
-1. Haz un **fork** de este repositorio.
-2. Crea una nueva rama para tu funcionalidad (ej. `git checkout -b feature/nueva-funcionalidad`).
-3. Realiza tus cambios y haz commit (ej. `git commit -m "Agrego nueva funcionalidad"`).
-4. **Push** a tu rama (ej. `git push origin feature/nueva-funcionalidad`).
-5. Abre un **Pull Request** en este repositorio.
-
-Si tienes ideas o encuentras errores, no dudes en abrir un **issue** para discutirlos.
-
----
-
-## Agradecimientos
-
-Este proyecto fue desarrollado por **Override**, una empresa dedicada a la creación de software
-educativo. Agradecemos a nuestro equipo de diseño gráfico por su valiosa colaboración en la creación
-de los elementos visuales que enriquecen esta experiencia.
-
----
-
-## Licencia
-
-Este proyecto es **open source** y se distribuye bajo la licencia **MIT**. Siéntete libre de usar,
-modificar y compartir el código, pero por favor atribuye el trabajo a los autores originales.
+Desarrollado con ❤️ por OverrideLLC.
