@@ -33,31 +33,6 @@ Calabozos y Compuertas Mobile es una aplicación diseñada para llevar la emoci�
 * **Android Splash Screen API:** Para una pantalla de inicio nativa y personalizable en Android.
 * **Gradle (Kotlin DSL):** Como sistema de construcción y gestión de dependencias del proyecto.
 
-## 📂 Estructura del Proyecto
-
-El proyecto está organizado en varios módulos, lo que facilita la separación de responsabilidades y la escalabilidad:
-
-Calabozos-Compuertas-Mobile-master/
-├── composeApp/         # Módulo principal de la aplicación con UI y lógica compartida
-│   ├── src/
-│   │   ├── androidMain/    # Código específico de Android (MainActivity, etc.)
-│   │   ├── commonMain/     # Código Kotlin compartido (App, Navegación, ViewModels, UI Components)
-│   │   └── iosMain/        # Código específico de iOS (MainViewController, etc.)
-├── controller/         # Módulo para la funcionalidad del controlador virtual
-│   ├── src/│   │   ├── commonMain/     # Lógica compartida del controlador
-├── feature/            # Módulos de funcionalidades específicas
-│   ├── dashboard/      # Funcionalidad del panel principal o dashboard
-│   └── start/          # Funcionalidad de la pantalla de inicio
-├── iosApp/             # Proyecto Xcode para la aplicación iOS
-├── logic_book/         # Módulo para el libro de compuertas lógicas
-│   ├── src/│   │   ├── commonMain/     # Lógica y UI compartida del libro de lógica
-├── resources/          # Módulo para recursos compartidos (ej. animaciones Lottie)
-│   ├── src/│   │   ├── commonMain/├── runes_book/         # Módulo para el libro de runas
-│   ├── src/│   │   ├── commonMain/     # Lógica y UI compartida del libro de runas
-├── shared/             # Módulo compartido general (posiblemente lógica de datos, enums, rutas)
-│   ├── src/│   │   ├── commonMain/├── build.gradle.kts    # Script de construcción principal del proyecto
-├── settings.gradle.kts # Configuración de los módulos del proyecto
-└── README.md           # Este archivo
 ## 🚀 Configuración e Instalación
 
 ### Requisitos Previos
