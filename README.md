@@ -79,7 +79,7 @@ Una vez instalada, abre la aplicación "Calabozos y Compuertas". Serás recibido
 
 * **Libro de Runas:** Explora el catálogo de runas, aprende sobre sus significados y usos.
 * **Libro de Lógica:** Sumérgete en el mundo de las compuertas lógicas con tutoriales interactivos.
-* **Controlador:** (Detallar cómo se usa el controlador si es aplicable).
+* **Controlador:**
 
 La aplicación utiliza una interfaz táctil intuitiva. Sigue las instrucciones en pantalla y los tutoriales para una mejor experiencia.
 
@@ -97,7 +97,7 @@ Por favor, asegúrate de que tu código sigue las guías de estilo del proyecto 
 
 ## 📄 Licencia
 
-Este proyecto está distribuido bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles (si tienes uno, si no, considera añadirlo o especificar la licencia).
+Este proyecto está distribuido bajo la Licencia Propia de Override. Consulta el archivo `LICENSE` para más detalles.
 
 ---
 
