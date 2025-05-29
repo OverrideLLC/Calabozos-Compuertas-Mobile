@@ -1,5 +1,5 @@
 # LICENCIA DE SOFTWARE - Calabozos y Compuertas Mobile
-Copyright (c) [2025] [Override] ("El Licenciante")
+Copyright (c) 2025 Override
 
 ## TODOS LOS DERECHOS RESERVADOS
 
@@ -55,8 +55,8 @@ h.  Uso Malicioso o Ilegal: Utilizar el Software para cualquier propósito ilega
 
 10. CONTACTO
     Para cualquier pregunta relacionada con esta Licencia, o para solicitar permisos para usos no cubiertos por esta Licencia, por favor contacte a:
-    [Override]
-    [contact@override.com.mx]
-    [www.override.com.mx]
+    · Override
+    · contact@override.com.mx
+    · www.override.com.mx
 
 AL UTILIZAR EL SOFTWARE, USTED RECONOCE QUE HA LEÍDO ESTA LICENCIA, LA ENTIENDE Y ACEPTA ESTAR OBLIGADO POR SUS TÉRMINOS Y CONDICIONES.
