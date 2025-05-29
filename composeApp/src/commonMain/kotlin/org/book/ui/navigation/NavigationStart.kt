@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.PlatformContext
 import com.calabozos_compuertas.runes_book.screen.RuneScreen
-import com.feature.dashboard.screen.DashboardScreen
+import com.feature.dashboard.screen.DashboardRoot
 import com.feature.start.screen.StartScreen
 import com.logic_book.ui.LogicGatesScreen
 import com.shared.routes.RoutesStart
@@ -21,6 +21,6 @@ fun NavigationStart(context: PlatformContext) {
         composable(RoutesStart.Start.route) { StartScreen(navController) }
         composable(RoutesStart.RunesBook.route) { RuneScreen(context) }
         composable(RoutesStart.LogicBook.route) { LogicGatesScreen(context) }
-        composable(RoutesStart.Dashboard.route) { DashboardScreen(navController) }
+        composable(RoutesStart.Dashboard.route) { DashboardRoot() }
     }
 }
